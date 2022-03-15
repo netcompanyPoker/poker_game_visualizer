@@ -1,0 +1,114 @@
+.background {
+    width: 100%;
+    text-align: left;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.right .background {
+    text-align: right;
+}
+
+.head {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    border-radius: 35px;
+    z-index: 2;
+    line-height: 70px;
+    color: rgba(255, 255, 255, 0.75);
+    font-family: helvetica;
+}
+
+.chips {
+    position: relative;
+    left: 100%;
+    font-size: 1rem;
+}
+
+.right .chips {
+    position: relative;
+    left: -100%;
+}
+
+img {
+    width: 100px;
+    height: 100%;
+    border-radius: 40px;
+    box-shadow: 0px 0px 2px white;
+    cursor: pointer;
+    background: linear-gradient(-45deg, #204a56, #397580, #204a56, #478c98, #204a56);
+    box-shadow: 0px 0px 5px black;
+    background: #337d6b;
+    box-shadow: inset 0px 0px 20px rgba(0, 0, 0, 0.65);
+}
+
+p.name {
+    display: inline-block;
+    font-family: Montserrat, Montserrat;
+    font-weight: 100;
+    margin-bottom: 8px;
+    color: #aa7f40;
+    font-size: 3rem;
+    text-shadow: 2px 2px 2px black;
+    height: 2rem;
+    /* this is important for left justification of right player text */
+    width: 100px;
+}
+
+.right p.name {
+    text-align: right;
+    /* width: unset;  */
+    /*this is important for left justification of right player text */
+}
+
+.chips_wagered {
+    position: absolute;
+    left: 120px;
+}
+
+.right .chips_wagered {
+    position: absolute;
+    right: 120px;
+    left: unset;
+}
+
+.glow {
+    box-shadow: 0px 0px 10px 15px;
+}
+
+.action {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: large;
+    font-weight: bold;
+    
+}
+
+.text_glow {
+    color: white;
+    text-shadow: 1px 1px 1px #000, -1px -1px 1px #000, 1px 1px 1px #000, -1px 1px 2px #000;
+}
+
+.score {
+    position: absolute;
+    top: -13%;
+    left: 15%;
+    font-size: 2rem;
+}
+
+.right .score {
+    right: 15%;
+    left: unset;
+}
+
+.container {   
+    position: relative; 
+  }
+

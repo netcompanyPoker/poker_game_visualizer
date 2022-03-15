@@ -1,0 +1,50 @@
+#navigation_container{
+    display: flex;
+    margin: 10px;
+}
+
+#controls_container{
+    width: 50%;
+}
+
+#games_container{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.mat-slider{
+    width: 100%;
+}
+
+#play_controls_container{
+    display: flex;
+    width: 100%;
+}
+
+.play_control{
+    flex: 1;
+    margin-left: 5px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+#play_button{
+    height: 100%;
+    width: 100%;
+}
+
+input{
+    width: 90%;
+    text-align: center;
+}
+
+.game_button{
+    flex:1;
+    margin-bottom: 5px;
+}
+
+.selected{
+    background-color: yellow;
+}

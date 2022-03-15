@@ -1,0 +1,19 @@
+<div class="{{side}}">
+    <p class="score text_glow">Score: {{playerState.score}}$</p>
+    <p class="name">{{player.name}}</p>
+    <div class="background">
+         
+            <div class="head" [ngClass]="{'glow' : playerState.next_to_act}">
+                <img [src]="imgurl">
+                <div class="action text_glow">{{playerState.action}}</div>
+            </div>
+        <label class="chips text_glow">Bet: {{playerState.chips_wagered}}$</label>
+        <div class="chips_wagered">
+            <app-stacker [valor]="playerState.chips_wagered"></app-stacker>
+        </div>        
+        <!--<label class="text_glow">stack: {{playerState.stack}}</label>-->
+        <app-card-group [cards]="player.cards"></app-card-group>
+        
+    </div>
+
+</div>

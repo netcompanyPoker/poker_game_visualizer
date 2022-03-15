@@ -1,0 +1,24 @@
+<div class="borderOut">
+  <div class="restFrame">
+    <div class="borderIn">
+      <div class="wood">
+        <div class="cloth">
+          <div class="player left">
+            <app-poker-player [player]="player1" [imgurl]="'https://icons.iconarchive.com/icons/noctuline/wall-e/256/EVE-icon.png'" [side]="'left'" [playerState]="player1Playerstate"></app-poker-player>
+          </div>
+          
+          <div class="community">
+            <div class="pot">
+              <label class="text_glow">Pot: {{pot}}$</label>
+              <app-stacker [valor]="pot"></app-stacker>
+            </div>
+            <app-card-group [cards]="community" [overlap]="true"></app-card-group>
+          </div>
+          <div class="player right">
+            <app-poker-player [player]="player2" [imgurl]="'https://icons.iconarchive.com/icons/noctuline/wall-e/256/Wall-E-icon.png'" [side]="'right'" [playerState]="player2Playerstate"></app-poker-player>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
