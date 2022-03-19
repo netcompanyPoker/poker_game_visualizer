@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { PokerGameModule } from './poker-game/poker-game.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
+import { SyncModule } from './sync/sync.module';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { MatSliderModule } from '@angular/material/slider';
     PokerGameModule,
     BrowserAnimationsModule,
     MatSliderModule,
+    SyncModule,
   ],
   exports: [],
   providers: [],
