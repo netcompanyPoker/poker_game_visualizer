@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SyncService } from '../sync/sync.service';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+
+export interface Client {
+  Id?: string;
+  Table?: string;
+}
 
 @Component({
   selector: 'app-control-panel',
@@ -13,6 +19,10 @@ export class ControlPanelComponent implements OnInit {
   public id: string = '';
   public status: string = 'idle';
   isPlaying: boolean = false;
+  clients: Client[] = [];
+  displayedColumns: string[] = ['Id', 'Table'];
+
+  dataSource = new MatTableDataSource(this.clients);
 
   constructor(private service: SyncService) {}
 
@@ -26,6 +36,7 @@ export class ControlPanelComponent implements OnInit {
     });
     this.service.connect();
     this.service.sendMessage({ cmd: 'connect', type: 'controlPanel' });
+    this.dataSource = new MatTableDataSource(this.clients);
   }
 
   private handleMessage(message: any) {
@@ -36,6 +47,20 @@ export class ControlPanelComponent implements OnInit {
         this.id = message['clientId'];
       } else if (message['cmd'] == 'start') {
         this.status = 'start';
+      } else if (message['cmd'] == 'clients') {
+        const clients: any[] = message['clients'];
+        clients
+          .filter((x) => {
+            return this.clients.findIndex((y) => y.Id == x) == -1;
+          })
+          .forEach((x) => {
+            this.clients.push({ Id: x });
+          });
+
+        this.clients = this.clients.filter(
+          (x) => clients.findIndex((y) => x.Id == y) != -1
+        );
+        this.dataSource = new MatTableDataSource(this.clients);
       }
     }
   }
