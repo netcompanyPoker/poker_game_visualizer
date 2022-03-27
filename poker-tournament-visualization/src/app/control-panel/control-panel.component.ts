@@ -1,13 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { SyncService } from './sync.service';
+import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { SyncService } from '../sync/sync.service';
 
 @Component({
-  selector: 'app-sync',
-  templateUrl: './sync.component.html',
-  styleUrls: ['./sync.component.css'],
+  selector: 'app-control-panel',
+  templateUrl: './control-panel.component.html',
+  styleUrls: ['./control-panel.component.css'],
 })
-export class SyncComponent implements OnInit, OnDestroy {
+export class ControlPanelComponent implements OnInit {
   subscription: Subscription | undefined;
   messages: any[] = [];
   public id: string = '';
@@ -25,7 +25,7 @@ export class SyncComponent implements OnInit, OnDestroy {
       this.handleMessage(message);
     });
     this.service.connect();
-    this.service.sendMessage({ cmd: 'connect', type: "client" });
+    this.service.sendMessage({ cmd: 'connect', type: 'controlPanel' });
   }
 
   private handleMessage(message: any) {

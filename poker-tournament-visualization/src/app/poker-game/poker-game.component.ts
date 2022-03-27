@@ -1,5 +1,7 @@
 import { Component, OnChanges, OnInit, Output } from '@angular/core';
 import { MatSliderChange } from '@angular/material/slider';
+import { Subscription } from 'rxjs';
+import { SyncService } from '../sync/sync.service';
 import { PokerGame, PokerGameService, Stage, History } from './poker-game.service';
 
 @Component({
@@ -9,6 +11,7 @@ import { PokerGame, PokerGameService, Stage, History } from './poker-game.servic
 })
 export class PokerGameComponent implements OnInit, OnChanges {
   games: PokerGame[];
+  syncSubscription: Subscription | undefined;
   gamesUI: any[];
   selectedGameIdx: number = 0;
   game: PokerGame;
@@ -25,7 +28,7 @@ export class PokerGameComponent implements OnInit, OnChanges {
   interestingHandIdx = 0;
   interval: any;
 
-  constructor(private pokerGameService: PokerGameService) {
+  constructor(private pokerGameService: PokerGameService, private syncService: SyncService) {
     this.games = this.pokerGameService.game
     this.game = this.games[0];
     this.gamesUI = []
@@ -45,6 +48,16 @@ export class PokerGameComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     const element = document.getElementById('slider');
     setTimeout(function() { element?.focus() }, 20);    
+   
+    this.syncSubscription = this.syncService
+      .onMessage()
+      .subscribe((message) => {
+        if (message && message['cmd'] == 'start') {
+          if (!this.isPlay) {
+            this.toggle();
+          }
+        }
+      });
   }
 
   ngOnChanges(): void {

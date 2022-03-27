@@ -7,11 +7,10 @@ import { PokerGameModule } from './poker-game/poker-game.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
 import { SyncModule } from './sync/sync.module';
+import { ControlPanelModule } from './control-panel/control-panel.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -19,9 +18,10 @@ import { SyncModule } from './sync/sync.module';
     BrowserAnimationsModule,
     MatSliderModule,
     SyncModule,
+    ControlPanelModule,
   ],
   exports: [],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
