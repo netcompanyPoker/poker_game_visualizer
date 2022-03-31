@@ -1,0 +1,1045 @@
+[
+    {"hand_count": 0, 
+        "active_players": [
+            {"name": "randomBot", "id": 0, "stack": 1000
+            },
+            {"name": "randomBot", "id": 1, "stack": 1000
+            },
+            {"name": "randomBot", "id": 2, "stack": 1000
+            },
+            {"name": "randomBot", "id": 3, "stack": 1000
+            },
+            {"name": "randomBot", "id": 4, "stack": 1000
+            },
+            {"name": "randomBot", "id": 5, "stack": 1000
+            },
+            {"name": "randomBot", "id": 6, "stack": 1000
+            },
+            {"name": "randomBot", "id": 7, "stack": 1000
+            },
+            {"name": "randomBot", "id": 8, "stack": 1000
+            },
+            {"name": "randomBot", "id": 9, "stack": 1000
+            }
+        ], "defeated_players": [], 
+        "hand_events": [
+            {"type": "action", "player": 0, "action": 5
+            },
+            {"type": "action", "player": 1, "action": 10
+            },
+            {"type": "deal", "player": 0, "card": "5s"
+            },
+            {"type": "deal", "player": 0, "card": "7c"
+            },
+            {"type": "deal", "player": 1, "card": "Ks"
+            },
+            {"type": "deal", "player": 1, "card": "3c"
+            },
+            {"type": "deal", "player": 2, "card": "5c"
+            },
+            {"type": "deal", "player": 2, "card": "Jd"
+            },
+            {"type": "deal", "player": 3, "card": "7h"
+            },
+            {"type": "deal", "player": 3, "card": "9c"
+            },
+            {"type": "deal", "player": 4, "card": "Th"
+            },
+            {"type": "deal", "player": 4, "card": "4c"
+            },
+            {"type": "deal", "player": 5, "card": "As"
+            },
+            {"type": "deal", "player": 5, "card": "Kd"
+            },
+            {"type": "deal", "player": 6, "card": "Qc"
+            },
+            {"type": "deal", "player": 6, "card": "Td"
+            },
+            {"type": "deal", "player": 7, "card": "9d"
+            },
+            {"type": "deal", "player": 7, "card": "3s"
+            },
+            {"type": "deal", "player": 8, "card": "9h"
+            },
+            {"type": "deal", "player": 8, "card": "2h"
+            },
+            {"type": "deal", "player": 9, "card": "9s"
+            },
+            {"type": "deal", "player": 9, "card": "Kh"
+            },
+            {"type": "action", "player": 2, "action": 215
+            },
+            {"type": "action", "player": 3, "action": 747
+            },
+            {"type": "action", "player": 4, "action": 1000
+            },
+            {"type": "action", "player": 5, "action": 0
+            },
+            {"type": "action", "player": 6, "action": 0
+            },
+            {"type": "action", "player": 7, "action": 0
+            },
+            {"type": "action", "player": 8, "action": 0
+            },
+            {"type": "action", "player": 9, "action": 1
+            },
+            {"type": "action", "player": 0, "action": 0
+            },
+            {"type": "action", "player": 1, "action": 0
+            },
+            {"type": "action", "player": 2, "action": 0
+            },
+            {"type": "action", "player": 3, "action": 0
+            },
+            {"type": "deal", "player": -1, "action": "4h"
+            },
+            {"type": "deal", "player": -1, "action": "Kc"
+            },
+            {"type": "deal", "player": -1, "action": "5h"
+            },
+            {"type": "deal", "player": -1, "action": "Ts"
+            },
+            {"type": "deal", "player": -1, "action": "Qs"
+            },
+            {"type": "reward", "player": 0, "reward": -5.0
+            },
+            {"type": "reward", "player": 1, "reward": -10.0
+            },
+            {"type": "reward", "player": 2, "reward": -215.0
+            },
+            {"type": "reward", "player": 3, "reward": -747.0
+            },
+            {"type": "reward", "player": 4, "reward": 1977.0
+            },
+            {"type": "reward", "player": 5, "reward": 0.0
+            },
+            {"type": "reward", "player": 6, "reward": 0.0
+            },
+            {"type": "reward", "player": 7, "reward": 0.0
+            },
+            {"type": "reward", "player": 8, "reward": 0.0
+            },
+            {"type": "reward", "player": 9, "reward": -1000.0
+            }
+        ]
+    },
+    {"hand_count": 1, "active_players": [
+            {"name": "randomBot", "id": 1, "stack": 990
+            },
+            {"name": "randomBot", "id": 2, "stack": 785
+            },
+            {"name": "randomBot", "id": 3, "stack": 253
+            },
+            {"name": "randomBot", "id": 4, "stack": 2977
+            },
+            {"name": "randomBot", "id": 5, "stack": 1000
+            },
+            {"name": "randomBot", "id": 6, "stack": 1000
+            },
+            {"name": "randomBot", "id": 7, "stack": 1000
+            },
+            {"name": "randomBot", "id": 8, "stack": 1000
+            },
+            {"name": "randomBot", "id": 0, "stack": 995
+            }
+        ], "defeated_players": [
+            {"name": "randomBot", "id": 9, "stack": 0
+            }
+        ], "hand_events": [
+            {"type": "action", "player": 0, "action": 5
+            },
+            {"type": "action", "player": 1, "action": 10
+            },
+            {"type": "deal", "player": 0, "card": "4h"
+            },
+            {"type": "deal", "player": 0, "card": "7h"
+            },
+            {"type": "deal", "player": 1, "card": "Jh"
+            },
+            {"type": "deal", "player": 1, "card": "6s"
+            },
+            {"type": "deal", "player": 2, "card": "5h"
+            },
+            {"type": "deal", "player": 2, "card": "3c"
+            },
+            {"type": "deal", "player": 3, "card": "Js"
+            },
+            {"type": "deal", "player": 3, "card": "4s"
+            },
+            {"type": "deal", "player": 4, "card": "2c"
+            },
+            {"type": "deal", "player": 4, "card": "9c"
+            },
+            {"type": "deal", "player": 5, "card": "8h"
+            },
+            {"type": "deal", "player": 5, "card": "5s"
+            },
+            {"type": "deal", "player": 6, "card": "5c"
+            },
+            {"type": "deal", "player": 6, "card": "8s"
+            },
+            {"type": "deal", "player": 7, "card": "2h"
+                
+            },
+            {"type": "deal", "player": 7, "card": "Ah"
+            },
+            {"type": "deal", "player": 8, "card": "5d"
+            },
+            {"type": "deal", "player": 8, "card": "3d"
+            },
+            {"type": "action", "player": 2, "action": 227
+            },
+            {"type": "action", "player": 3, "action": 1723
+            },
+            {"type": "action", "player": 4, "action": 1
+            },
+            {"type": "action", "player": 5, "action": 1
+            },
+            {"type": "action", "player": 6, "action": 0
+            },
+            {"type": "action", "player": 7, "action": 0
+            },
+            {"type": "action", "player": 8, "action": 0
+            },
+            {"type": "action", "player": 0, "action": 0
+            },
+            {"type": "action", "player": 1, "action": 1
+            },
+            {"type": "action", "player": 2, "action": 1
+            },
+            {"type": "deal", "player": -1, "action": "6c"
+            },
+            {"type": "deal", "player": -1, "action": "Kc"
+            },
+            {"type": "deal", "player": -1, "action": "Ks"
+            },
+            {"type": "deal", "player": -1, "action": "Qc"
+            },
+            {"type": "deal", "player": -1, "action": "Kh"
+            },
+            {"type": "reward", "player": 0, "reward": -5.0
+            },
+            {"type": "reward", "player": 1, "reward": 2613.0
+            },
+            {"type": "reward", "player": 2, "reward": -253.0
+            },
+            {"type": "reward", "player": 3, "reward": -1000.0
+            },
+            {"type": "reward", "player": 4, "reward": -355.0
+            },
+            {"type": "reward", "player": 5, "reward": -1000.0
+            },
+            {"type": "reward", "player": 6, "reward": 0.0
+            },
+            {"type": "reward", "player": 7, "reward": 0.0
+            },
+            {"type": "reward", "player": 8, "reward": 0.0
+            }
+        ]
+    },
+    {"hand_count": 2, "active_players": [
+            {"name": "randomBot", "id": 2, "stack": 3398
+            },
+            {"name": "randomBot", "id": 4, "stack": 1977
+            },
+            {"name": "randomBot", "id": 5, "stack": 645
+            },
+            {"name": "randomBot", "id": 7, "stack": 1000
+            },
+            {"name": "randomBot", "id": 8, "stack": 1000
+            },
+            {"name": "randomBot", "id": 0, "stack": 995
+            },
+            {"name": "randomBot", "id": 1, "stack": 985
+            }
+        ], "defeated_players": [
+            {"name": "randomBot", "id": 9, "stack": 0
+            },
+            {"name": "randomBot", "id": 3, "stack": 0
+            },
+            {"name": "randomBot", "id": 6, "stack": 0
+            }
+        ], "hand_events": [
+            {"type": "action", "player": 0, "action": 5
+            },
+            {"type": "action", "player": 1, "action": 10
+            },
+            {"type": "deal", "player": 0, "card": "6h"
+            },
+            {"type": "deal", "player": 0, "card": "4d"
+            },
+            {"type": "deal", "player": 1, "card": "8s"
+            },
+            {"type": "deal", "player": 1, "card": "Ah"
+            },
+            {"type": "deal", "player": 2, "card": "3s"
+            },
+            {"type": "deal", "player": 2, "card": "7d"
+            },
+            {"type": "deal", "player": 3, "card": "2h"
+            },
+            {"type": "deal", "player": 3, "card": "3c"
+            },
+            {"type": "deal", "player": 4, "card": "2c"
+            },
+            {"type": "deal", "player": 4, "card": "Qs"
+            },
+            {"type": "deal", "player": 5, "card": "Kh"
+            },
+            {"type": "deal", "player": 5, "card": "Th"
+            },
+            {"type": "deal", "player": 6, "card": "9s"
+            },
+            {"type": "deal", "player": 6, "card": "4h"
+            },
+            {"type": "action", "player": 2, "action": 321
+            },
+            {"type": "action", "player": 3, "action": 647
+            },
+            {"type": "action", "player": 4, "action": 991
+            },
+            {"type": "action", "player": 5, "action": 1
+            },
+            {"type": "action", "player": 6, "action": 0
+            },
+            {"type": "action", "player": 0, "action": 2648
+            },
+            {"type": "action", "player": 1, "action": 1
+            },
+            {"type": "action", "player": 2, "action": 1
+            },
+            {"type": "action", "player": 3, "action": 0
+            },
+            {"type": "action", "player": 4, "action": 0
+            },
+            {"type": "action", "player": 5, "action": 1
+            },
+            {"type": "deal", "player": -1, "action": "Kc"
+            },
+            {"type": "deal", "player": -1, "action": "5c"
+            },
+            {"type": "deal", "player": -1, "action": "Qh"
+            },
+            {"type": "deal", "player": -1, "action": "Ks"
+            },
+            {"type": "deal", "player": -1, "action": "Qd"
+            },
+            {"type": "reward", "player": 0, "reward": -1977.0
+            },
+            {"type": "reward", "player": 1, "reward": -13.0
+            },
+            {"type": "reward", "player": 2, "reward": -645.0
+            },
+            {"type": "reward", "player": 3, "reward": -647.0
+            },
+            {"type": "reward", "player": 4, "reward": -991.0
+            },
+            {"type": "reward", "player": 5, "reward": 4273.0
+            },
+            {"type": "reward", "player": 6, "reward": 0.0
+            }
+        ]
+    },
+    {"hand_count": 3, "active_players": [
+            {"name": "randomBot", "id": 4, "stack": 1964
+            },
+            {"name": "randomBot", "id": 7, "stack": 353
+            },
+            {"name": "randomBot", "id": 0, "stack": 5268
+            },
+            {"name": "randomBot", "id": 1, "stack": 985
+            },
+            {"name": "randomBot", "id": 2, "stack": 1421
+            }
+        ], "defeated_players": [
+            {"name": "randomBot", "id": 9, "stack": 0
+            },
+            {"name": "randomBot", "id": 3, "stack": 0
+            },
+            {"name": "randomBot", "id": 6, "stack": 0
+            },
+            {"name": "randomBot", "id": 5, "stack": 0
+            },
+            {"name": "randomBot", "id": 8, "stack": 0
+            }
+        ], "hand_events": [
+            {"type": "action", "player": 0, "action": 5
+            },
+            {"type": "action", "player": 1, "action": 10
+            },
+            {"type": "deal", "player": 0, "card": "9c"
+            },
+            {"type": "deal", "player": 0, "card": "Ks"
+            },
+            {"type": "deal", "player": 1, "card": "Jc"
+            },
+            {"type": "deal", "player": 1, "card": "5s"
+            },
+            {"type": "deal", "player": 2, "card": "9d"
+            },
+            {"type": "deal", "player": 2, "card": "Tc"
+            },
+            {"type": "deal", "player": 3, "card": "Th"
+            },
+            {"type": "deal", "player": 3, "card": "4h"
+            },
+            {"type": "deal", "player": 4, "card": "Kd"
+            },
+            {"type": "deal", "player": 4, "card": "2c"
+            },
+            {"type": "action", "player": 2, "action": 2941
+            },
+            {"type": "action", "player": 3, "action": 0
+            },
+            {"type": "action", "player": 4, "action": 1
+            },
+            {"type": "action", "player": 0, "action": 0
+            },
+            {"type": "action", "player": 1, "action": 0
+            },
+            {"type": "deal", "player": -1, "action": "Ts"
+            },
+            {"type": "deal", "player": -1, "action": "3h"
+            },
+            {"type": "deal", "player": -1, "action": "6s"
+            },
+            {"type": "deal", "player": -1, "action": "3d"
+            },
+            {"type": "deal", "player": -1, "action": "4s"
+            },
+            {"type": "reward", "player": 0, "reward": -5.0
+            },
+            {"type": "reward", "player": 1, "reward": -10.0
+            },
+            {"type": "reward", "player": 2, "reward": 1436.0
+            },
+            {"type": "reward", "player": 3, "reward": 0.0
+            },
+            {"type": "reward", "player": 4, "reward": -1421.0
+            }
+        ]
+    },
+    {"hand_count": 4, "active_players": [
+            {"name": "randomBot", "id": 7, "stack": 343
+            },
+            {"name": "randomBot", "id": 0, "stack": 6704
+            },
+            {"name": "randomBot", "id": 1, "stack": 985
+            },
+            {"name": "randomBot", "id": 4, "stack": 1959
+            }
+        ], "defeated_players": [
+            {"name": "randomBot", "id": 9, "stack": 0
+            },
+            {"name": "randomBot", "id": 3, "stack": 0
+            },
+            {"name": "randomBot", "id": 6, "stack": 0
+            },
+            {"name": "randomBot", "id": 5, "stack": 0
+            },
+            {"name": "randomBot", "id": 8, "stack": 0
+            },
+            {"name": "randomBot", "id": 2, "stack": 0
+            }
+        ], "hand_events": [
+            {"type": "action", "player": 0, "action": 5
+            },
+            {"type": "action", "player": 1, "action": 10
+            },
+            {"type": "deal", "player": 0, "card": "7c"
+            },
+            {"type": "deal", "player": 0, "card": "6s"
+            },
+            {"type": "deal", "player": 1, "card": "5h"
+            },
+            {"type": "deal", "player": 1, "card": "8s"
+            },
+            {"type": "deal", "player": 2, "card": "2d"
+            },
+            {"type": "deal", "player": 2, "card": "Qc"
+            },
+            {"type": "deal", "player": 3, "card": "Ks"
+            },
+            {"type": "deal", "player": 3, "card": "5d"
+            },
+            {"type": "action", "player": 2, "action": 163
+            },
+            {"type": "action", "player": 3, "action": 498
+            },
+            {"type": "action", "player": 0, "action": 1
+            },
+            {"type": "action", "player": 1, "action": 4551
+            },
+            {"type": "action", "player": 2, "action": 1
+            },
+            {"type": "action", "player": 3, "action": 0
+            },
+            {"type": "deal", "player": -1, "action": "Td"
+            },
+            {"type": "deal", "player": -1, "action": "7h"
+            },
+            {"type": "deal", "player": -1, "action": "8d"
+            },
+            {"type": "deal", "player": -1, "action": "Ad"
+            },
+            {"type": "deal", "player": -1, "action": "7d"
+            },
+            {"type": "reward", "player": 0, "reward": -343.0
+            },
+            {"type": "reward", "player": 1, "reward": -985.0
+            },
+            {"type": "reward", "player": 2, "reward": 1826.0
+            },
+            {"type": "reward", "player": 3, "reward": -498.0
+            }
+        ]
+    },
+    {"hand_count": 5, "active_players": [
+            {"name": "randomBot", "id": 1, "stack": 2811
+            },
+            {"name": "randomBot", "id": 4, "stack": 1461
+            },
+            {"name": "randomBot", "id": 0, "stack": 5719
+            }
+        ], "defeated_players": [
+            {"name": "randomBot", "id": 9, "stack": 0
+            },
+            {"name": "randomBot", "id": 3, "stack": 0
+            },
+            {"name": "randomBot", "id": 6, "stack": 0
+            },
+            {"name": "randomBot", "id": 5, "stack": 0
+            },
+            {"name": "randomBot", "id": 8, "stack": 0
+            },
+            {"name": "randomBot", "id": 2, "stack": 0
+            },
+            {"name": "randomBot", "id": 7, "stack": 0
+            }
+        ], "hand_events": [
+            {"type": "action", "player": 0, "action": 5
+            },
+            {"type": "action", "player": 1, "action": 10
+            },
+            {"type": "deal", "player": 0, "card": "2s"
+            },
+            {"type": "deal", "player": 0, "card": "4s"
+            },
+            {"type": "deal", "player": 1, "card": "9c"
+            },
+            {"type": "deal", "player": 1, "card": "8d"
+            },
+            {"type": "deal", "player": 2, "card": "4d"
+            },
+            {"type": "deal", "player": 2, "card": "Qh"
+            },
+            {"type": "action", "player": 2, "action": 194
+            },
+            {"type": "action", "player": 0, "action": 2033
+            },
+            {"type": "action", "player": 1, "action": 0
+            },
+            {"type": "action", "player": 2, "action": 4634
+            },
+            {"type": "action", "player": 0, "action": 1
+            },
+            {"type": "deal", "player": -1, "action": "2d"
+            },
+            {"type": "deal", "player": -1, "action": "Qs"
+            },
+            {"type": "deal", "player": -1, "action": "Tc"
+            },
+            {"type": "deal", "player": -1, "action": "Qc"
+            },
+            {"type": "deal", "player": -1, "action": "8s"
+            },
+            {"type": "reward", "player": 0, "reward": -2811.0
+            },
+            {"type": "reward", "player": 1, "reward": -10.0
+            },
+            {"type": "reward", "player": 2, "reward": 2821.0
+            }
+        ]
+    },
+    {"hand_count": 6, "active_players": [
+            {"name": "randomBot", "id": 0, "stack": 8540
+            },
+            {"name": "randomBot", "id": 4, "stack": 1451
+            }
+        ], "defeated_players": [
+            {"name": "randomBot", "id": 9, "stack": 0
+            },
+            {"name": "randomBot", "id": 3, "stack": 0
+            },
+            {"name": "randomBot", "id": 6, "stack": 0
+            },
+            {"name": "randomBot", "id": 5, "stack": 0
+            },
+            {"name": "randomBot", "id": 8, "stack": 0
+            },
+            {"name": "randomBot", "id": 2, "stack": 0
+            },
+            {"name": "randomBot", "id": 7, "stack": 0
+            },
+            {"name": "randomBot", "id": 1, "stack": 0
+            }
+        ], "hand_events": [
+            {"type": "action", "player": 0, "action": 5
+            },
+            {"type": "action", "player": 1, "action": 10
+            },
+            {"type": "deal", "player": 0, "card": "9d"
+            },
+            {"type": "deal", "player": 0, "card": "5d"
+            },
+            {"type": "deal", "player": 1, "card": "Kc"
+            },
+            {"type": "deal", "player": 1, "card": "Jc"
+            },
+            {"type": "action", "player": 0, "action": 2582
+            },
+            {"type": "action", "player": 1, "action": 1
+            },
+            {"type": "deal", "player": -1, "action": "Js"
+            },
+            {"type": "deal", "player": -1, "action": "Td"
+            },
+            {"type": "deal", "player": -1, "action": "Qh"
+            },
+            {"type": "deal", "player": -1, "action": "6h"
+            },
+            {"type": "deal", "player": -1, "action": "5h"
+            },
+            {"type": "reward", "player": 0, "reward": -1451.0
+            },
+            {"type": "reward", "player": 1, "reward": 1451.0
+            }
+        ]
+    },
+    {"hand_count": 7, "active_players": [
+            {"name": "randomBot", "id": 4, "stack": 2902
+            },
+            {"name": "randomBot", "id": 0, "stack": 7089
+            }
+        ], "defeated_players": [
+            {"name": "randomBot", "id": 9, "stack": 0
+            },
+            {"name": "randomBot", "id": 3, "stack": 0
+            },
+            {"name": "randomBot", "id": 6, "stack": 0
+            },
+            {"name": "randomBot", "id": 5, "stack": 0
+            },
+            {"name": "randomBot", "id": 8, "stack": 0
+            },
+            {"name": "randomBot", "id": 2, "stack": 0
+            },
+            {"name": "randomBot", "id": 7, "stack": 0
+            },
+            {"name": "randomBot", "id": 1, "stack": 0
+            }
+        ], "hand_events": [
+            {"type": "action", "player": 0, "action": 5
+            },
+            {"type": "action", "player": 1, "action": 10
+            },
+            {"type": "deal", "player": 0, "card": "4c"
+            },
+            {"type": "deal", "player": 0, "card": "5d"
+            },
+            {"type": "deal", "player": 1, "card": "4h"
+            },
+            {"type": "deal", "player": 1, "card": "2h"
+            },
+            {"type": "action", "player": 0, "action": 2303
+            },
+            {"type": "action", "player": 1, "action": 5135
+            },
+            {"type": "action", "player": 0, "action": 1
+            },
+            {"type": "deal", "player": -1, "action": "7h"
+            },
+            {"type": "deal", "player": -1, "action": "3c"
+            },
+            {"type": "deal", "player": -1, "action": "9c"
+            },
+            {"type": "deal", "player": -1, "action": "Ad"
+            },
+            {"type": "deal", "player": -1, "action": "9s"
+            },
+            {"type": "reward", "player": 0, "reward": 2902.0
+            },
+            {"type": "reward", "player": 1, "reward": -2902.0
+            }
+        ]
+    },
+    {"hand_count": 8, "active_players": [
+            {"name": "randomBot", "id": 0, "stack": 4187
+            },
+            {"name": "randomBot", "id": 4, "stack": 5804
+            }
+        ], "defeated_players": [
+            {"name": "randomBot", "id": 9, "stack": 0
+            },
+            {"name": "randomBot", "id": 3, "stack": 0
+            },
+            {"name": "randomBot", "id": 6, "stack": 0
+            },
+            {"name": "randomBot", "id": 5, "stack": 0
+            },
+            {"name": "randomBot", "id": 8, "stack": 0
+            },
+            {"name": "randomBot", "id": 2, "stack": 0
+            },
+            {"name": "randomBot", "id": 7, "stack": 0
+            },
+            {"name": "randomBot", "id": 1, "stack": 0
+            }
+        ], "hand_events": [
+            {"type": "action", "player": 0, "action": 5
+            },
+            {"type": "action", "player": 1, "action": 10
+            },
+            {"type": "deal", "player": 0, "card": "2s"
+            },
+            {"type": "deal", "player": 0, "card": "Ac"
+            },
+            {"type": "deal", "player": 1, "card": "8c"
+            },
+            {"type": "deal", "player": 1, "card": "7h"
+            },
+            {"type": "action", "player": 0, "action": 623
+            },
+            {"type": "action", "player": 1, "action": 4140
+            },
+            {"type": "action", "player": 0, "action": 1
+            },
+            {"type": "deal", "player": -1, "action": "2h"
+            },
+            {"type": "deal", "player": -1, "action": "Qd"
+            },
+            {"type": "deal", "player": -1, "action": "Ts"
+            },
+            {"type": "action", "player": 0, "action": 4175
+            },
+            {"type": "action", "player": 1, "action": 4620
+            },
+            {"type": "action", "player": 0, "action": 1
+            },
+            {"type": "deal", "player": -1, "action": "Td"
+            },
+            {"type": "deal", "player": -1, "action": "Ah"
+            },
+            {"type": "reward", "player": 0, "reward": 4187.0
+            },
+            {"type": "reward", "player": 1, "reward": -4187.0
+            }
+        ]
+    },
+    {"hand_count": 9, "active_players": [
+            {"name": "randomBot", "id": 4, "stack": 1617
+            },
+            {"name": "randomBot", "id": 0, "stack": 8374
+            }
+        ], "defeated_players": [
+            {"name": "randomBot", "id": 9, "stack": 0
+            },
+            {"name": "randomBot", "id": 3, "stack": 0
+            },
+            {"name": "randomBot", "id": 6, "stack": 0
+            },
+            {"name": "randomBot", "id": 5, "stack": 0
+            },
+            {"name": "randomBot", "id": 8, "stack": 0
+            },
+            {"name": "randomBot", "id": 2, "stack": 0
+            },
+            {"name": "randomBot", "id": 7, "stack": 0
+            },
+            {"name": "randomBot", "id": 1, "stack": 0
+            }
+        ], "hand_events": [
+            {"type": "action", "player": 0, "action": 5
+            },
+            {"type": "action", "player": 1, "action": 10
+            },
+            {"type": "deal", "player": 0, "card": "9d"
+            },
+            {"type": "deal", "player": 0, "card": "5c"
+            },
+            {"type": "deal", "player": 1, "card": "Ad"
+            },
+            {"type": "deal", "player": 1, "card": "Js"
+            },
+            {"type": "action", "player": 0, "action": 952
+            },
+            {"type": "action", "player": 1, "action": 7592
+            },
+            {"type": "action", "player": 0, "action": 1
+            },
+            {"type": "deal", "player": -1, "action": "7s"
+            },
+            {"type": "deal", "player": -1, "action": "5s"
+            },
+            {"type": "deal", "player": -1, "action": "6h"
+            },
+            {"type": "deal", "player": -1, "action": "5h"
+            },
+            {"type": "deal", "player": -1, "action": "Ah"
+            },
+            {"type": "reward", "player": 0, "reward": 1617.0
+            },
+            {"type": "reward", "player": 1, "reward": -1617.0
+            }
+        ]
+    },
+    {"hand_count": 10, "active_players": [
+            {"name": "randomBot", "id": 0, "stack": 6757
+            },
+            {"name": "randomBot", "id": 4, "stack": 3234
+            }
+        ], "defeated_players": [
+            {"name": "randomBot", "id": 9, "stack": 0
+            },
+            {"name": "randomBot", "id": 3, "stack": 0
+            },
+            {"name": "randomBot", "id": 6, "stack": 0
+            },
+            {"name": "randomBot", "id": 5, "stack": 0
+            },
+            {"name": "randomBot", "id": 8, "stack": 0
+            },
+            {"name": "randomBot", "id": 2, "stack": 0
+            },
+            {"name": "randomBot", "id": 7, "stack": 0
+            },
+            {"name": "randomBot", "id": 1, "stack": 0
+            }
+        ], "hand_events": [
+            {"type": "action", "player": 0, "action": 5
+            },
+            {"type": "action", "player": 1, "action": 10
+            },
+            {"type": "deal", "player": 0, "card": "2c"
+            },
+            {"type": "deal", "player": 0, "card": "7c"
+            },
+            {"type": "deal", "player": 1, "card": "4d"
+            },
+            {"type": "deal", "player": 1, "card": "Kc"
+            },
+            {"type": "action", "player": 0, "action": 3917
+            },
+            {"type": "action", "player": 1, "action": 0
+            },
+            {"type": "reward", "player": 0, "reward": 10.0
+            },
+            {"type": "reward", "player": 1, "reward": -10.0
+            }
+        ]
+    },
+    {"hand_count": 11, "active_players": [
+            {"name": "randomBot", "id": 4, "stack": 3224
+            },
+            {"name": "randomBot", "id": 0, "stack": 6767
+            }
+        ], "defeated_players": [
+            {"name": "randomBot", "id": 9, "stack": 0
+            },
+            {"name": "randomBot", "id": 3, "stack": 0
+            },
+            {"name": "randomBot", "id": 6, "stack": 0
+            },
+            {"name": "randomBot", "id": 5, "stack": 0
+            },
+            {"name": "randomBot", "id": 8, "stack": 0
+            },
+            {"name": "randomBot", "id": 2, "stack": 0
+            },
+            {"name": "randomBot", "id": 7, "stack": 0
+            },
+            {"name": "randomBot", "id": 1, "stack": 0
+            }
+        ], "hand_events": [
+            {"type": "action", "player": 0, "action": 10
+            },
+            {"type": "action", "player": 1, "action": 20
+            },
+            {"type": "deal", "player": 0, "card": "Qs"
+            },
+            {"type": "deal", "player": 0, "card": "Th"
+            },
+            {"type": "deal", "player": 1, "card": "9c"
+            },
+            {"type": "deal", "player": 1, "card": "9h"
+            },
+            {"type": "action", "player": 0, "action": 3138
+            },
+            {"type": "action", "player": 1, "action": 6623
+            },
+            {"type": "action", "player": 0, "action": 0
+            },
+            {"type": "reward", "player": 0, "reward": -3138.0
+            },
+            {"type": "reward", "player": 1, "reward": 3138.0
+            }
+        ]
+    },
+    {"hand_count": 12, "active_players": [
+            {"name": "randomBot", "id": 0, "stack": 9905
+            },
+            {"name": "randomBot", "id": 4, "stack": 86
+            }
+        ], "defeated_players": [
+            {"name": "randomBot", "id": 9, "stack": 0
+            },
+            {"name": "randomBot", "id": 3, "stack": 0
+            },
+            {"name": "randomBot", "id": 6, "stack": 0
+            },
+            {"name": "randomBot", "id": 5, "stack": 0
+            },
+            {"name": "randomBot", "id": 8, "stack": 0
+            },
+            {"name": "randomBot", "id": 2, "stack": 0
+            },
+            {"name": "randomBot", "id": 7, "stack": 0
+            },
+            {"name": "randomBot", "id": 1, "stack": 0
+            }
+        ], "hand_events": [
+            {"type": "action", "player": 0, "action": 10
+            },
+            {"type": "action", "player": 1, "action": 20
+            },
+            {"type": "deal", "player": 0, "card": "8h"
+            },
+            {"type": "deal", "player": 0, "card": "5d"
+            },
+            {"type": "deal", "player": 1, "card": "6c"
+            },
+            {"type": "deal", "player": 1, "card": "Tc"
+            },
+            {"type": "action", "player": 0, "action": 6881
+            },
+            {"type": "action", "player": 1, "action": 1
+            },
+            {"type": "deal", "player": -1, "action": "Qs"
+            },
+            {"type": "deal", "player": -1, "action": "9s"
+            },
+            {"type": "deal", "player": -1, "action": "As"
+            },
+            {"type": "deal", "player": -1, "action": "Kc"
+            },
+            {"type": "deal", "player": -1, "action": "Qh"
+            },
+            {"type": "reward", "player": 0, "reward": -86.0
+            },
+            {"type": "reward", "player": 1, "reward": 86.0
+            }
+        ]
+    },
+    {"hand_count": 13, "active_players": [
+            {"name": "randomBot", "id": 4, "stack": 172
+            },
+            {"name": "randomBot", "id": 0, "stack": 9819
+            }
+        ], "defeated_players": [
+            {"name": "randomBot", "id": 9, "stack": 0
+            },
+            {"name": "randomBot", "id": 3, "stack": 0
+            },
+            {"name": "randomBot", "id": 6, "stack": 0
+            },
+            {"name": "randomBot", "id": 5, "stack": 0
+            },
+            {"name": "randomBot", "id": 8, "stack": 0
+            },
+            {"name": "randomBot", "id": 2, "stack": 0
+            },
+            {"name": "randomBot", "id": 7, "stack": 0
+            },
+            {"name": "randomBot", "id": 1, "stack": 0
+            }
+        ], "hand_events": [
+            {"type": "action", "player": 0, "action": 10
+            },
+            {"type": "action", "player": 1, "action": 20
+            },
+            {"type": "deal", "player": 0, "card": "Th"
+            },
+            {"type": "deal", "player": 0, "card": "Jc"
+            },
+            {"type": "deal", "player": 1, "card": "7s"
+            },
+            {"type": "deal", "player": 1, "card": "4d"
+            },
+            {"type": "action", "player": 0, "action": 127
+            },
+            {"type": "action", "player": 1, "action": 5550
+            },
+            {"type": "action", "player": 0, "action": 0
+            },
+            {"type": "reward", "player": 0, "reward": -127.0
+            },
+            {"type": "reward", "player": 1, "reward": 127.0
+            }
+        ]
+    },
+    {"hand_count": 14, "active_players": [
+            {"name": "randomBot", "id": 0, "stack": 9946
+            },
+            {"name": "randomBot", "id": 4, "stack": 45
+            }
+        ], "defeated_players": [
+            {"name": "randomBot", "id": 9, "stack": 0
+            },
+            {"name": "randomBot", "id": 3, "stack": 0
+            },
+            {"name": "randomBot", "id": 6, "stack": 0
+            },
+            {"name": "randomBot", "id": 5, "stack": 0
+            },
+            {"name": "randomBot", "id": 8, "stack": 0
+            },
+            {"name": "randomBot", "id": 2, "stack": 0
+            },
+            {"name": "randomBot", "id": 7, "stack": 0
+            },
+            {"name": "randomBot", "id": 1, "stack": 0
+            }
+        ], "hand_events": [
+            {"type": "action", "player": 0, "action": 10
+            },
+            {"type": "action", "player": 1, "action": 20
+            },
+            {"type": "deal", "player": 0, "card": "Ks"
+            },
+            {"type": "deal", "player": 0, "card": "7h"
+            },
+            {"type": "deal", "player": 1, "card": "Ts"
+            },
+            {"type": "deal", "player": 1, "card": "4h"
+            },
+            {"type": "action", "player": 0, "action": 4605
+            },
+            {"type": "action", "player": 1, "action": 1
+            },
+            {"type": "deal", "player": -1, "action": "8s"
+            },
+            {"type": "deal", "player": -1, "action": "2d"
+            },
+            {"type": "deal", "player": -1, "action": "3d"
+            },
+            {"type": "deal", "player": -1, "action": "3h"
+            },
+            {"type": "deal", "player": -1, "action": "5d"
+            },
+            {"type": "reward", "player": 0, "reward": 45.0
+            },
+            {"type": "reward", "player": 1, "reward": -45.0
+            }
+        ]
+    }
+]
