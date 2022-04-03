@@ -11,6 +11,7 @@
   background-repeat: no-repeat;
   background-position: center center;
 }
+
 .game::before {
   position: absolute;
   background: rgba(26, 26, 26, 0.8);
@@ -23,7 +24,8 @@
 
 .table {
   z-index: 1;
-  height: auto; /*600px;*/
+  height: auto;
+  /*600px;*/
 }
 
 /********************************************/
@@ -96,6 +98,7 @@
   border-color: transparent transparent transparent rgba(255, 255, 255, 0.8);
   z-index: 1;
 }
+
 .playback.playback__pause:after {
   left: 16px;
   border-width: 8px 2px 8px 2px;
@@ -109,6 +112,7 @@
   transform: rotate(180deg);
   z-index: 1;
 }
+
 .playback.playback__play:after {
   left: 8px;
   border-width: 8px 2px 8px 2px;
@@ -169,4 +173,9 @@ input {
 
 .selected {
   background-color: yellow;
+}
+
+.sync {
+  display: flex;
+
 }

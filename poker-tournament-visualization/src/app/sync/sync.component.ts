@@ -14,6 +14,7 @@ export class SyncComponent implements OnInit, OnDestroy {
   public status: string = 'idle';
   isPlaying: boolean = false;
   private LOCALSTORAGE_ID = "ID"
+  public debug = false;
 
   constructor(public service: SyncService) { }
 
