@@ -1,5 +1,24 @@
-<div class="card-group hhand-compact" [ngClass]="{'community' : overlap}">
-    <div class="container">
-        <img *ngFor="let card of cardsToShow" class="card" src="{{card}}">
+<ng-container *ngIf=" overlap">
+    <div class="comunity-cards">
+        <div class="ghostCards">
+            <div class="ghostCard"></div>
+            <div class="ghostCard"></div>
+            <div class="ghostCard"></div>
+            <div class="ghostCard"></div>
+            <div class="ghostCard"></div>
+        </div>
+
+        <div class="comunity-cards__cards">
+            <img *ngFor="let card of cardsToShow" class="card" src="{{card}}">
+        </div>
     </div>
-</div>
+</ng-container>
+
+<ng-container *ngIf="!overlap">
+
+    <div class="card-group hand-compact" [ngClass]="{'community' : overlap}">
+        <div class="container">
+            <img *ngFor="let card of cardsToShow" class="card" src="{{card}}">
+        </div>
+    </div>
+</ng-container>

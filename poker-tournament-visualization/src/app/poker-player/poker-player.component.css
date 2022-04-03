@@ -1,114 +1,317 @@
 .background {
-    width: 100%;
-    text-align: left;
-    height: 100px;
-    border-radius: 50%;
+  width: 100%;
+  text-align: left;
+  height: 100px;
+  border-radius: 50%;
 }
 
 .right .background {
-    text-align: right;
+  text-align: right;
 }
 
 .head {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    border-radius: 35px;
-    z-index: 2;
-    line-height: 70px;
-    color: rgba(255, 255, 255, 0.75);
-    font-family: helvetica;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border-radius: 35px;
+  z-index: 2;
+  line-height: 70px;
+  color: rgba(255, 255, 255, 0.75);
+  font-family: helvetica;
 }
 
 .chips {
-    position: relative;
-    left: 100%;
-    font-size: 1rem;
+  position: relative;
+  left: 100%;
+  font-size: 1rem;
 }
 
 .right .chips {
-    position: relative;
-    left: -100%;
+  position: relative;
+  left: -100%;
 }
 
 img {
-    width: 100px;
-    height: 100%;
-    border-radius: 40px;
-    box-shadow: 0px 0px 2px white;
-    cursor: pointer;
-    background: linear-gradient(-45deg, #204a56, #397580, #204a56, #478c98, #204a56);
-    box-shadow: 0px 0px 5px black;
-    background: #337d6b;
-    box-shadow: inset 0px 0px 20px rgba(0, 0, 0, 0.65);
+  width: 100px;
+  height: 100%;
+  border-radius: 40px;
+  box-shadow: 0px 0px 2px white;
+  cursor: pointer;
+  background: linear-gradient(
+    -45deg,
+    #204a56,
+    #397580,
+    #204a56,
+    #478c98,
+    #204a56
+  );
+  box-shadow: 0px 0px 5px black;
+  background: #337d6b;
+  box-shadow: inset 0px 0px 20px rgba(0, 0, 0, 0.65);
 }
 
 p.name {
-    display: inline-block;
-    font-family: Montserrat, Montserrat;
-    font-weight: 100;
-    margin-bottom: 8px;
-    color: #aa7f40;
-    font-size: 3rem;
-    text-shadow: 2px 2px 2px black;
-    height: 2rem;
-    /* this is important for left justification of right player text */
-    width: 100px;
+  display: inline-block;
+  font-family: Montserrat, Montserrat;
+  font-weight: 100;
+  margin-bottom: 8px;
+  color: #aa7f40;
+  font-size: 3rem;
+  text-shadow: 2px 2px 2px black;
+  height: 2rem;
+  /* this is important for left justification of right player text */
+  width: 100px;
 }
 
 .right p.name {
-    text-align: right;
-    /* width: unset;  */
-    /*this is important for left justification of right player text */
+  text-align: right;
+  /* width: unset;  */
+  /*this is important for left justification of right player text */
 }
 
 .chips_wagered {
-    position: absolute;
-    left: 120px;
+  position: absolute;
+  left: 120px;
 }
 
 .right .chips_wagered {
-    position: absolute;
-    right: 120px;
-    left: unset;
+  position: absolute;
+  right: 120px;
+  left: unset;
 }
 
 .glow {
-    box-shadow: 0px 0px 10px 15px;
+  box-shadow: 0px 0px 10px 15px;
 }
 
 .action {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    
-    display: inline-block;
-    overflow: hidden;
-    white-space: nowrap;
-    font-size: large;
-    font-weight: bold;
-    
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: large;
+  font-weight: bold;
 }
 
 .text_glow {
-    color: white;
-    text-shadow: 1px 1px 1px #000, -1px -1px 1px #000, 1px 1px 1px #000, -1px 1px 2px #000;
+  color: white;
+  text-shadow: 1px 1px 1px #000, -1px -1px 1px #000, 1px 1px 1px #000,
+    -1px 1px 2px #000;
 }
 
 .score {
-    position: absolute;
-    top: -13%;
-    left: 15%;
-    font-size: 2rem;
+  position: absolute;
+  top: -13%;
+  left: 15%;
+  font-size: 2rem;
 }
 
 .right .score {
-    right: 15%;
-    left: unset;
+  right: 15%;
+  left: unset;
 }
 
-.container {   
-    position: relative; 
-  }
+.container {
+  position: relative;
+}
 
+/********************************************************************************/
+/* New */
+/********************************************************************************/
+.player {
+  text-align: center;
+}
+
+.player .player__avatar {
+  border: 6px solid rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 140px;
+  height: 140px;
+  border-radius: 100%;
+  background: #e74c3c;
+  box-shadow: inset 4px 4px 8px 0px rgb(0 0 0 / 20%),
+    0px 0px 8px 8px rgb(0 0 0 / 20%);
+}
+
+.player .player__avatar img {
+  object-fit: cover;
+  background: none;
+  box-shadow: none;
+  transform: scale(70%);
+}
+
+.player .player__avatar.glow {
+  box-shadow: 0px 0px 8px 4px rgba(255, 255, 255, 0.6);
+  border: 6px solid #fffeea;
+}
+
+.player .player__cards {
+  position: absolute;
+  width: 100%;
+  transform: translateY(-80px);
+}
+
+.player .player__information {
+  position: absolute;
+  transform: translateY(-20px);
+  border: 3px solid;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: Montserrat;
+  color: #ffffff;
+  padding: 4px 8px;
+  border-radius: 30px;
+  background: #2d3436;
+  box-shadow: 0px 0px 8px 8px rgb(0 0 0 / 20%);
+}
+
+.player .player__information--name {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+.player .player__information--score {
+  margin-top: 2px;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.player .player__information--big-blind,
+.player .player__information--small-blind,
+.player .player__information--dealer,
+.player .player__information--winner {
+  position: absolute;
+  top: 0px;
+  right: 50%;
+  transform: translate(50%, -30px);
+  padding: 1px 12px;
+  background: #e7aa3c;
+  border-radius: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  white-space: nowrap;
+}
+.player .player__information--small-blind {
+  background: #3c81e7;
+}
+
+.player .player__information--dealer {
+  background: #0a0a0a;
+}
+.player .player__information--winner {
+  background: #f707eb;
+}
+
+.player .player__call {
+  position: absolute;
+  z-index: 1;
+  left: calc(50% - 34px);
+  top: -40px;
+  background: #ffffff;
+  padding: 12px 28px;
+  white-space: nowrap;
+  border-radius: 28px;
+  font-family: Montserrat;
+  font-weight: 900;
+  color: #2d3436;
+  box-shadow: 20px 20px 20px 0px rgb(0 0 0 / 40%);
+  font-size: 1.2rem;
+  text-transform: capitalize;
+}
+
+.player .player__call:after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 24px;
+  bottom: -8px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 10px 10px 0 10px;
+  border-color: #ffffff transparent transparent transparent;
+}
+
+.player .bet {
+  position: absolute;
+}
+
+.player .bet .bet__stack {
+  position: absolute;
+  left: 5px;
+  bottom: -20px;
+}
+.player .bet .bet__number {
+  position: absolute;
+  top: 11px;
+  text-align: left;
+  left: -10px;
+  width: 80px;
+  padding: 4px;
+  color: #ffffff;
+  font-size: 1.4rem;
+  font-family: Montserrat;
+  font-weight: 900;
+  text-shadow: 2px 2px 8px rgb(0 0 0 / 90%);
+}
+
+/********************************************************************************/
+/* State */
+/********************************************************************************/
+.state_out {
+  opacity: 0.75;
+}
+.state_out .player__call,
+.state_out .player__cards,
+.state_out .bet,
+.state_out .player__information--score {
+  display: none;
+}
+
+.state_fold .player__call,
+.state_fold .player__cards {
+  display: none;
+}
+
+/********************************************************************************/
+/* Not active */
+/********************************************************************************/
+.player.not-active {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.player.not-active div {
+  border: 3px solid #e76659;
+  width: 80px;
+  padding: 12px;
+  background: #2d3436;
+  border-radius: 100%;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  font-family: Montserrat;
+  font-weight: 700;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 0.7rem;
+  box-shadow: inset 8px 8px 8px 0px rgb(0 0 0 / 20%),
+    0px 0px 8px 8px rgb(0 0 0 / 20%);
+}

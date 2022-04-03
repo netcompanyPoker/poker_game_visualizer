@@ -1,4 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+* {
+  box-sizing: border-box;
+}
+
+.mat-slider-wrapper {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.mat-slider-wrapper .mat-slider-track-fill {
+  background-color: #e76659;
+}
+.mat-slider-wrapper .mat-slider-thumb {
+  background-color: #e76659;
+}
+
+.mat-slider-min-value:not(.mat-slider-thumb-label-showing) .mat-slider-thumb {
+  border-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  background-color: #e76659;
+}

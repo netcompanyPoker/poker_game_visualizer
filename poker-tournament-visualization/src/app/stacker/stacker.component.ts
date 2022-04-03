@@ -8,6 +8,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/cor
 export class StackerComponent implements OnInit, OnChanges {
 
   @Input() valor: number = 0;
+
   chipsStacked: string[] = [];
 
   constructor() { }

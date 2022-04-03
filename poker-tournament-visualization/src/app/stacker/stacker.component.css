@@ -1,13 +1,15 @@
 .stack {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  right: 20px;
+  top: -20px;
 }
 
 .chip {
-    margin-bottom: -100%;
+  margin-bottom: -120%;
 }
 
 .chip:first-child {
-    width: 60%;
+  width: 60%;
 }
-  

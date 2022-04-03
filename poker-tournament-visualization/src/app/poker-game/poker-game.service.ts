@@ -3,22 +3,26 @@ import * as data from './games.json';
 
 
 export interface Player {
+  id : number;
   cards: string[];
   name: string;
-  total_reward: number;
-  winner?: boolean;
+  dealer : boolean;
+  seatstate : SeatState;
 }
+
+export type SeatState = 'active' | 'not-active' | 'out' | 'fold' | 'small-blind' | 'big-blind' | undefined;
+
 
 export interface PokerGame {
   game_nbr: string;
   tournament_stage: string;
   player1: TopLevelPlayer1;
   player2: TopLevelPlayer1;
-  hands: Hand[];
+  hands: HandOld[];
   winner?: string;
 }
 
-export interface Hand {
+export interface HandOld {
   nbr: number;
   raise_count: number;
   abs_reward: number;
@@ -53,7 +57,7 @@ export interface TopLevelPlayer1 {
   winner?: boolean;
 }
 
-export interface PlayerState {
+export interface PlayerStateOld {
   chips_wagered: number;
   stack: number;
   next_to_act: boolean;

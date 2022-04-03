@@ -11,6 +11,7 @@ import { CardGroupComponent } from '../card-group/card-group.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { StackerComponent } from '../stacker/stacker.component';
 import { ChipsComponent } from '../chips/chips.component';
+import { NewPokerGameService } from './new-poker-game.service';
 import { SyncModule } from '../sync/sync.module';
 
 @NgModule({
@@ -30,7 +31,12 @@ import { SyncModule } from '../sync/sync.module';
     FormsModule,
     SyncModule,
   ],
-  exports: [PokerGameComponent],
-  providers: [PokerGameService],
+  exports: [
+    PokerGameComponent,
+  ],
+  providers: [
+    PokerGameService,
+    NewPokerGameService
+  ]
 })
 export class PokerGameModule {}
