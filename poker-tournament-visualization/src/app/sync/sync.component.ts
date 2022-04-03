@@ -13,8 +13,9 @@ export class SyncComponent implements OnInit, OnDestroy {
   public id: string = '';
   public status: string = 'idle';
   isPlaying: boolean = false;
+  private LOCALSTORAGE_ID = "ID"
 
-  constructor(private service: SyncService) {}
+  constructor(private service: SyncService) { }
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
@@ -25,7 +26,8 @@ export class SyncComponent implements OnInit, OnDestroy {
       this.handleMessage(message);
     });
     this.service.connect();
-    this.service.sendMessage({ cmd: 'connect', type: "client" });
+
+    this.service.sendMessage({ cmd: 'connect', type: "client", requested_id: this.getId() });
   }
 
   private handleMessage(message: any) {
@@ -33,11 +35,20 @@ export class SyncComponent implements OnInit, OnDestroy {
       console.log(message);
       this.messages.push(message);
       if (message['cmd'] == 'ACK') {
-        this.id = message['clientId'];
+        this.setId(message['clientId']);
       } else if (message['cmd'] == 'start') {
         this.status = 'start';
       }
     }
+  }
+
+  setId(id: string): void {
+    this.id = id;
+    localStorage.setItem(this.LOCALSTORAGE_ID, id);
+  }
+
+  getId(): string | null {
+    return localStorage.getItem(this.LOCALSTORAGE_ID);
   }
 
   asStr() {
