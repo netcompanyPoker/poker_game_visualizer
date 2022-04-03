@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SyncService } from '../sync/sync.service';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { FormArray, FormGroup, FormBuilder, FormControl } from '@angular/forms';
 
 export interface Client {
   Id?: string;
@@ -13,18 +14,30 @@ export interface Client {
   templateUrl: './control-panel.component.html',
   styleUrls: ['./control-panel.component.css'],
 })
-export class ControlPanelComponent implements OnInit {
+export class ControlPanelComponent implements OnInit, OnDestroy {
   subscription: Subscription | undefined;
   messages: any[] = [];
   public id: string = '';
   public status: string = 'idle';
   isPlaying: boolean = false;
   clients: Client[] = [];
-  displayedColumns: string[] = ['Id', 'Table'];
+  displayedColumns: string[] = ['id', 'table'];
+  form: FormGroup;
 
   dataSource = new MatTableDataSource(this.clients);
 
-  constructor(private service: SyncService) {}
+  constructor(
+    private service: SyncService,
+    private _formBuilder: FormBuilder
+  ) {
+    this.form = this._formBuilder.group({
+      tables: this._formBuilder.array([])
+    });
+  }
+
+  get tables(): FormArray {
+    return this.form.get('tables') as FormArray;
+  }
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
@@ -55,6 +68,8 @@ export class ControlPanelComponent implements OnInit {
           })
           .forEach((x) => {
             this.clients.push({ Id: x });
+            this.form.setControl('tables', this.getClientsAsFormArray())
+            // this.form.addControl('tables', this.mapToGroup({ Id: x }))
           });
 
         this.clients = this.clients.filter(
@@ -65,11 +80,36 @@ export class ControlPanelComponent implements OnInit {
     }
   }
 
+  getClientsAsFormArray(): FormArray {
+    const fgs = this.clients.map(x => {
+      return this.mapToGroup(x);
+    })
+    return new FormArray(fgs);
+  }
+
+  private mapToGroup(x: Client) {
+    const fg = new FormGroup({
+      id: new FormControl(x.Id),
+      table: new FormControl(x.Table),
+    });
+    return fg;
+  }
+
+  onTableChange(event: any, element: any) {
+    console.log(event)
+    const client = this.clients.find(x => x.Id == element.value.id)
+    if (client) {
+      if (event?.target?.value) {
+        client.Table = event?.target.value;
+      }
+    }
+  }
+
   asStr() {
     return JSON.stringify(this.messages[this.messages.length - 1]);
   }
 
   startForAll() {
-    this.service.sendMessage({ cmd: 'start' });
+    this.service.sendMessage({ cmd: 'start', tables: this.form.value['tables'] });
   }
 }

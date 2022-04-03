@@ -10,7 +10,7 @@ import { SyncService } from '../sync/sync.service';
   styleUrls: ['./poker-game.component.css']
 })
 export class PokerGameComponent implements OnInit, OnChanges {
-  syncSubscription: Subscription | undefined;  
+  syncSubscription: Subscription | undefined;
   game: Game;
   stage: Stage;
   actionIdx: number = 0;
@@ -24,58 +24,63 @@ export class PokerGameComponent implements OnInit, OnChanges {
   interestingHandIdx = 0;
   interval: any;
 
-  constructor(private newPokerGameService: NewPokerGameService, 
-    private testPokerGameService: TestPokerGameService, private syncService: SyncService) {
-    this.newPokerGameService.getTransformedData() 
-    this.game = this.testPokerGameService.getTestData();    
+  constructor(
+    private newPokerGameService: NewPokerGameService,
+    private testPokerGameService: TestPokerGameService,
+    private syncService: SyncService) {
+    this.newPokerGameService.getTransformedData()
+    this.game = this.testPokerGameService.getTestData();
     this.stage = Stage.Preflop;
   }
 
-  ngOnInit(): void {  
-  this.syncSubscription = this.syncService
+  ngOnInit(): void {
+    this.syncSubscription = this.syncService
       .onMessage()
       .subscribe((message) => {
         if (message && message['cmd'] == 'start') {
           if (!this.isPlay) {
             this.toggle();
           }
+        } else if (message && message['cmd'] == 'load') {
+          const jsonToPlay = message['table'].find((x: any) => x['id'] == this.syncService.id)['table']
+          console.log(jsonToPlay)
         }
-      });    
+      });
   }
 
-  ngOnChanges(): void {    
+  ngOnChanges(): void {
   }
 
-  toggle(){
+  toggle() {
     this.isPlay = !this.isPlay;
-    if(this.isPlay){
+    if (this.isPlay) {
       let endReached = false;
 
       this.interestingHandIdx = 0;
       let interestingHands = this.game.hands;
       this.handSliderOnChange(interestingHands[this.interestingHandIdx].handId);
       this.interval = setInterval(() => {
-        if (this.isPlay){
-          if (this.actionIdx < this.getMaxActions()){
+        if (this.isPlay) {
+          if (this.actionIdx < this.getMaxActions()) {
             this.sliderOnChange(this.actionIdx + 1);
-          }else if(this.actionIdx == this.getMaxActions() && endReached){
+          } else if (this.actionIdx == this.getMaxActions() && endReached) {
             this.interestingHandIdx += 1;
             endReached = false;
-            if (this.interestingHandIdx < this.handCount){
+            if (this.interestingHandIdx < this.handCount) {
               this.handSliderOnChange(interestingHands[this.interestingHandIdx].handId);
-            }else{
+            } else {
               this.handSliderOnChange(this.getMaxHands());
               this.sliderOnChange(this.getMaxActions());
               this.toggle();
             }
-          }else{
+          } else {
             endReached = true;
           }
-          
+
         }
       }, this.speed * this.game.hands[this.interestingHandIdx].steps[this.actionIdx].timeconstant);
-    }else{
-      if(this.interval){
+    } else {
+      if (this.interval) {
         clearInterval(this.interval)
       }
     }
@@ -104,7 +109,7 @@ export class PokerGameComponent implements OnInit, OnChanges {
   // }
 
   getMaxActions(): number {
-    const actions = this.game.hands[this.handIdx].steps.length-1;
+    const actions = this.game.hands[this.handIdx].steps.length - 1;
     return actions; // +1 for the show-down
   }
 
@@ -119,7 +124,7 @@ export class PokerGameComponent implements OnInit, OnChanges {
   }
 
   getMaxHands(): number {
-    const hands = this.game.hands.length-1;
+    const hands = this.game.hands.length - 1;
     return hands; // +1 for the show-down
   }
 
@@ -133,7 +138,7 @@ export class PokerGameComponent implements OnInit, OnChanges {
   //   if(Number(this.speedInput)){
   //     this.speed = Number(this.speedInput);
   //     this.resetSliders();
-      
+
   //   }
   // }
 

@@ -1,20 +1,44 @@
-<p>control-panel works!</p>
+<form [formGroup]="form" autocomplete="off">
+  <ng-container formArrayName="tables">
+    <mat-table [dataSource]="tables.controls">
 
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-    <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
-      <th mat-header-cell *matHeaderCellDef>{{ column }}</th>
-      <td mat-cell *matCellDef="let emp">{{ emp[column] }}</td>
-    </ng-container>
-  
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let emprow; columns: displayedColumns"></tr>
-  </table>
-  
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.get('id').value}}. </mat-cell>
+      </ng-container>
 
+      <ng-container matColumnDef="table">
+        <mat-header-cell *matHeaderCellDef> Table file </mat-header-cell>
+        <mat-cell *matCellDef="let element;" [formGroup]="element">
+          <mat-form-field floatLabel="never">
+            <input matInput (change)="onTableChange($event, element)" placeholder="table1.json" formControlName="table"
+              required>
+          </mat-form-field>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </ng-container>
+</form>
+<!-- <mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Form value
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <code>
+      {{form.value | json}}
+    </code>
+  </mat-expansion-panel>
+</mat-accordion> -->
+<br>
 <div id="play_controls_container">
-    <div class="play_control">
-        <button id="play_button" (click)="startForAll()">
-            {{isPlaying ? "pause" : "play"}}
-        </button>
-    </div>
+  <div class="play_control">
+    <button id="play_button" (click)="startForAll()">
+      {{isPlaying ? "pause" : "play"}}
+    </button>
+  </div>
 </div>

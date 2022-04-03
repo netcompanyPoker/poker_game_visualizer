@@ -16,11 +16,12 @@ export const RECONNECT_INTERVAL = environment.reconnectInterval;
   providedIn: 'root',
 })
 export class SyncService {
+  public id: string | null = null;
   private socket$: WebSocketSubject<unknown> | undefined;
   private messagesSubject$ = new Subject<any>();
   // public messages$ = this.messagesSubject$.pipe(switchAll(), catchError(e => { throw e }));
 
-  constructor() {}
+  constructor() { }
 
   /**
    * Creates a new WebSocket subject and send it to the messages subject

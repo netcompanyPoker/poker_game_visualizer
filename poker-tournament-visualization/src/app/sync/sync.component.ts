@@ -15,7 +15,7 @@ export class SyncComponent implements OnInit, OnDestroy {
   isPlaying: boolean = false;
   private LOCALSTORAGE_ID = "ID"
 
-  constructor(private service: SyncService) { }
+  constructor(public service: SyncService) { }
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
@@ -43,7 +43,7 @@ export class SyncComponent implements OnInit, OnDestroy {
   }
 
   setId(id: string): void {
-    this.id = id;
+    this.service.id = id;
     localStorage.setItem(this.LOCALSTORAGE_ID, id);
   }
 
@@ -53,9 +53,5 @@ export class SyncComponent implements OnInit, OnDestroy {
 
   asStr() {
     return JSON.stringify(this.messages[this.messages.length - 1]);
-  }
-
-  startForAll() {
-    this.service.sendMessage({ cmd: 'start' });
   }
 }
