@@ -199,9 +199,10 @@ export class NewPokerGameService {
       filteredHandevents.forEach((obj, index) => {
         let mainobj = obj!;
         const id = mainobj.player
-        let step : Step  = {stepId : index +1, timeconstant : NORMAL_TIMECONSTANT, playerStates : new Map<number, PlayerState>()}
+        
         
         if(mainobj.player != -1){
+          let step : Step  = {stepId : index +1, timeconstant : NORMAL_TIMECONSTANT, playerStates : new Map<number, PlayerState>()}
           const actionNumber = mainobj.action
           let bettingState = betcontrol.get(id)!
 
@@ -226,29 +227,49 @@ export class NewPokerGameService {
             action : this.setAction(mainobj.action, index, bettingState.currentstack == 0),
             stage_contribution : bettingState.stage_contribution,
             stack : bettingState.currentstack                      
-          } ) 
-        }else{
-          step.playerStates = undefined
+          } )
+          theHand.steps.push(step) 
+        }else{          
           if(boardStepsLeft > 0){
             boardStepsLeft -= 1
           }else{
-            const cards = this.getCardsforBoard(filteredHandevents.slice(index, index+5))
-            boardStepsLeft = cards.length -1
-            currentStage = this.setStage(cards.length, currentStage)   
+            //pre stage
             pot += this.calculatePot(betcontrol)
+            let preboardstate : BoardState = {
+              pot : pot              
+            }
+
+            let preplayerstates = new Map<number, PlayerState>()
+            betcontrol.forEach(obj => preplayerstates.set(obj.id, {stage_contribution : 0}) )
+            
+
+            
+            
+            betcontrol.forEach(obj => obj = this.resetStageBettingstate(obj))
+            let prestep : Step  = {stepId : index +1, timeconstant : PRE_STAGE_CHANGE_TIMECONSTANT, playerStates : preplayerstates, boardState : preboardstate}
+            
+            theHand.steps.push(prestep)
+            const cards = this.getCardsforBoard(filteredHandevents.slice(index, index+5))
+            boardStepsLeft = cards.length -1            
+            
+            currentStage = this.setStage(cards.length, currentStage)   
+            
             let boardstate : BoardState = {
               cards : cards,
-              pot : pot,
               stage : currentStage
             }            
-            step.boardState = boardstate
-            betcontrol.forEach(obj => obj = this.resetStageBettingstate(obj))
+            let playerstates =  new Map<number, PlayerState>()
+            if(index != filteredHandevents.length -1 - boardStepsLeft){
+              if(filteredHandevents[index + 1 + boardStepsLeft ].player!= -1){
+                playerstates.set(filteredHandevents[index + 1 + boardStepsLeft].player,{next_to_act : true})
+              }          
+            }
 
+            let step : Step  = {stepId : index +2, timeconstant : STAGE_CHANGE_TIMECONSTANT, playerStates : playerstates, boardState : boardstate}
+            theHand.steps.push(step)
+            betcontrol.forEach(obj => obj = this.resetStageBettingstate(obj))
           }          
-        }
-        if(step.playerStates != undefined || step.boardState != undefined ){
-          theHand.steps.push(step)
-        }        
+        }            
       })      
       newHands.push(theHand)      
     }    
