@@ -18,7 +18,7 @@ async def connect(websocket, path):
         msg = json.loads(message)
         if "cmd" not in msg:
             print(f"Message unknown: {message}")
-            return
+            continue
         if msg["cmd"] == "connect":
             await handle_connect(websocket, msg)
 
