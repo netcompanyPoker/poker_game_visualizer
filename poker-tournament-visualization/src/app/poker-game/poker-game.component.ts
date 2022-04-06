@@ -25,11 +25,10 @@ export class PokerGameComponent implements OnInit, OnChanges {
   interval: any;
 
   constructor(
-    private newPokerGameService: NewPokerGameService,
-    private testPokerGameService: TestPokerGameService,
-    private syncService: SyncService) {
-    this.newPokerGameService.getTransformedData()
-    this.game = this.testPokerGameService.getTestData();
+    private newPokerGameService: NewPokerGameService, 
+    private testPokerGameService: TestPokerGameService, 
+    private syncService: SyncService) {    
+    this.game = this.newPokerGameService.getTransformedData();    
     this.stage = Stage.Preflop;
   }
 

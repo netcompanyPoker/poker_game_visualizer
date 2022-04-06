@@ -5,6 +5,7 @@ export const SETUP_TIMECONSTANT = 5;
 export const NORMAL_TIMECONSTANT = 2;
 export const PRE_STAGE_CHANGE_TIMECONSTANT = 0.5;
 export const STAGE_CHANGE_TIMECONSTANT = 10;
+export const WINNER_TIMECONSTANT = 10;
 export interface Players {
   name: string;
   id: number;
@@ -51,17 +52,6 @@ export interface State {
   seatstate : SeatState
   dealer : boolean
 }
-
-export interface StepOld{
-  id  : number
-  action? : string  
-  cards? : string[]
-  stage_contribution? : number
-  stack? : number
-  pot? : number
-  stage? : Stage
-}
-
 export interface PlayerState{  
   name? : string
   action? : string
@@ -153,6 +143,7 @@ export class NewPokerGameService {
           str += player.stage_contribution != null ? `, Stage Contribution: ${player.stage_contribution}` : ''
           str += player.stack != null ? `, Stack: ${player.stack}` : ''
           str += player.next_to_act != null ? `, Next: ${player.next_to_act}` : ''
+          str += player.winner != null ? `, Winner: ${player.winner}` : ''
           console.log( str)
         })
         let bstr = ``
@@ -226,7 +217,8 @@ export class NewPokerGameService {
           step.playerStates!.set(mainobj.player,{            
             action : this.setAction(mainobj.action, index, bettingState.currentstack == 0),
             stage_contribution : bettingState.stage_contribution,
-            stack : bettingState.currentstack                      
+            stack : bettingState.currentstack,
+            next_to_act : false                     
           } )
           theHand.steps.push(step) 
         }else{          
@@ -234,6 +226,8 @@ export class NewPokerGameService {
             boardStepsLeft -= 1
           }else{
             //pre stage
+            // logic hvis player har smidt mere i end andre, så får han noget tilbage igen?
+            //eller også vinder han det ved rewards? tag start af det andet game? 
             pot += this.calculatePot(betcontrol)
             let preboardstate : BoardState = {
               pot : pot              
@@ -270,7 +264,17 @@ export class NewPokerGameService {
             betcontrol.forEach(obj => obj = this.resetStageBettingstate(obj))
           }          
         }            
-      })      
+      })
+      //add winner logic
+      let rewards = handEvents.filter(x => x.type == 'reward' && x.reward! > 0);
+      let winnerPlayerstate = new Map<number, PlayerState>()
+      rewards.forEach(obj => winnerPlayerstate.set(obj.player, {stage_contribution : obj.reward! + (betcontrol.get(obj.player)!.totalStack - betcontrol.get(obj.player)!.currentstack), winner : true}))
+      let winnerboardstate : BoardState = {
+        pot : 0
+      } 
+      let winnerstep : Step  = {stepId :  99, timeconstant : WINNER_TIMECONSTANT, playerStates : winnerPlayerstate, boardState : winnerboardstate}
+      theHand.steps.push(winnerstep)
+      
       newHands.push(theHand)      
     }    
     return newHands
