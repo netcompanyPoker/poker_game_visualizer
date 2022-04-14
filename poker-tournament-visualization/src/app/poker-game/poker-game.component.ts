@@ -17,7 +17,7 @@ export class PokerGameComponent implements OnInit, OnChanges {
   handIdx: number = 0;
   isPlay: boolean = false;
   speedInput: number = 4;
-  speed: number = 500;
+  speed: number = 200;
   handCountInput: number = 5;
   handCount: number = 10;
   interestingHands: number[] = []
@@ -85,27 +85,12 @@ export class PokerGameComponent implements OnInit, OnChanges {
     }
   }
 
-  // setStage(val?: number): void {
-  //   const newValue = val ?? this.actionIdx;
-  //   let currentStage = Stage.Preflop;
-  //   for (let index = 0; index <= newValue; index++) {
-  //     const action = this.game.hands[this.handIdx].history[index].action;
-  //     if (action == Stage.Preflop) {
-  //       currentStage = Stage.Preflop;
-  //     } else if (action == Stage.Flop) {
-  //       currentStage = Stage.Flop;
-  //     } else if (action == Stage.Turn) {
-  //       currentStage = Stage.Turn;
-  //     } else if (action == Stage.River) {
-  //       currentStage = Stage.River;
-  //     } else if (action == Stage.EndHidden) {
-  //       currentStage = Stage.EndHidden;
-  //     }else if (action == Stage.Showdown) {
-  //       currentStage = Stage.Showdown;
-  //     }
-  //   }
-  //   this.stage = currentStage;
-  // }
+  setStage(val?: number): void {
+    const newValue = val ?? this.actionIdx;
+    let currentStage = Stage.Preflop;
+    let stagelist = this.game.hands[this.handIdx].steps.slice(0, newValue+1).filter(obj => obj.boardState?.stage != null)
+    this.stage = stagelist.length > 0 ? stagelist[stagelist.length-1].boardState!.stage! : currentStage;
+  }
 
   getMaxActions(): number {
     const actions = this.game.hands[this.handIdx].steps.length - 1;
@@ -118,7 +103,7 @@ export class PokerGameComponent implements OnInit, OnChanges {
   // }
 
   sliderOnChange(val: any) {
-    //this.setStage(val)
+    this.setStage(val)
     this.actionIdx = val
   }
 
