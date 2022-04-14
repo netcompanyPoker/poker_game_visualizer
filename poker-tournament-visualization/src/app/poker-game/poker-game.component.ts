@@ -3,6 +3,7 @@ import { Game, NewPokerGameService, Stage } from './new-poker-game.service';
 import { TestPokerGameService } from './test-poker-game.service';
 import { Subscription } from 'rxjs';
 import { SyncService } from '../sync/sync.service';
+import { HighlightService } from './highlight.service';
 
 @Component({
   selector: 'app-poker-game',
@@ -11,6 +12,7 @@ import { SyncService } from '../sync/sync.service';
 })
 export class PokerGameComponent implements OnInit, OnChanges {
   syncSubscription: Subscription | undefined;
+  fullGame: Game;
   game: Game;
   stage: Stage;
   actionIdx: number = 0;
@@ -19,7 +21,7 @@ export class PokerGameComponent implements OnInit, OnChanges {
   speedInput: number = 4;
   speed: number = 200;
   handCountInput: number = 5;
-  handCount: number = 10;
+  handCount: number = 11;
   interestingHands: number[] = []
   interestingHandIdx = 0;
   interval: any;
@@ -27,8 +29,10 @@ export class PokerGameComponent implements OnInit, OnChanges {
   constructor(
     private newPokerGameService: NewPokerGameService, 
     private testPokerGameService: TestPokerGameService, 
-    private syncService: SyncService) {    
-    this.game = this.newPokerGameService.getTransformedData();    
+    private highlightService: HighlightService, 
+    private syncService: SyncService) {
+    this.fullGame = this.newPokerGameService.getTransformedData()
+    this.game = this.highlightService.getHighlightedHands(newPokerGameService.game,this.fullGame) ;    
     this.stage = Stage.Preflop;
   }
 
@@ -108,7 +112,7 @@ export class PokerGameComponent implements OnInit, OnChanges {
   }
 
   getMaxHands(): number {
-    const hands = this.game.hands.length - 1;
+    const hands = this.fullGame.hands.length - 1;
     return hands; // +1 for the show-down
   }
 

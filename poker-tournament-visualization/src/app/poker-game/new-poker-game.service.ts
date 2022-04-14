@@ -20,7 +20,7 @@ export interface HandEvent {
   handtype? : string
 }
 
-export interface GameJSON {
+export interface HandJSON {
   hand_count: number;
   active_players: Players[];
   defeated_players: Players[];
@@ -118,7 +118,7 @@ export enum Stage {
   providedIn: 'root'
 })
 export class NewPokerGameService {
-  game: GameJSON[];
+  game: HandJSON[];
 
   constructor() {
     this.game = data
@@ -332,7 +332,7 @@ export class NewPokerGameService {
     return { prestep, newpot };
   }
 
-  private getSetupStep(hand: GameJSON, handEvents: HandEvent[]) {
+  private getSetupStep(hand: HandJSON, handEvents: HandEvent[]) {
     const activePlayers = hand.active_players;
     const defeated_players = hand.defeated_players;
     const setupstep: Step = { stepId: 0, timeconstant: SETUP_TIMECONSTANT, playerStates: new Map<number, PlayerState>() };
