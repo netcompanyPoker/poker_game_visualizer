@@ -31,8 +31,7 @@
                 [tickInterval]="'1'" (input)="handSliderOnChange($event.value)"></mat-slider>
             <p>Current hand <span class="number">{{handIdx+1}}</span> of <span class="number">{{getMaxHands()+1}}</span>
             </p>
-        </div>
-        <label>{{this.game.hands[this.interestingHandIdx].steps[this.actionIdx].timeconstant}}</label>
+        </div>        
         <div class="settings">
             [X]
         </div>

@@ -41,8 +41,8 @@ export class TestPokerGameService {
   getTestdataSetupStep():Step{
     const states = new Map<number, PlayerState>()    
     states.set(0, { name: "JHP", cards: ["Ac", "Ah"], stage_contribution: 0, stack: 1000, seatstate: 'active', dealer: true, next_to_act: false })
-    states.set(1, { name: "TBK", cards: ["2c", "3h"], stage_contribution: 0, stack: 1000, seatstate: 'small-blind', dealer: false, next_to_act: true })
-    states.set(2, { name: "FBL", cards: ["Tc", "Kh"], stage_contribution: 0, stack: 1000, seatstate: 'big-blind', dealer: false, next_to_act: false })
+    states.set(1, { name: "TBK", cards: ["2c", "3h"], stage_contribution: 0, stack: 1000, seatstate: 'active', dealer: false, next_to_act: true })
+    states.set(2, { name: "FBL", cards: ["Tc", "Kh"], stage_contribution: 0, stack: 1000, seatstate: 'active', dealer: false, next_to_act: false })
     return  {stepId : 0, timeconstant : SETUP_TIMECONSTANT, playerStates : states}
   }
 

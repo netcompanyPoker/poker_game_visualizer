@@ -5,18 +5,19 @@ export const SETUP_TIMECONSTANT = 5;
 export const NORMAL_TIMECONSTANT = 2;
 export const PRE_STAGE_CHANGE_TIMECONSTANT = 0.5;
 export const STAGE_CHANGE_TIMECONSTANT = 10;
+export const WINNER_TIMECONSTANT = 10;
 export interface Players {
   name: string;
   id: number;
   stack: number;
 }
-export interface HandEvent {
-  type: string;
-  player: number;
-  action?: any;
-  card?: string;
-  reward?: number;
-  cards? : string[]
+export interface HandEvent {   
+  type: string
+  player: number
+  action?: any
+  card?: string
+  reward?: number
+  handtype? : string
 }
 
 export interface GameJSON {
@@ -51,17 +52,6 @@ export interface State {
   seatstate : SeatState
   dealer : boolean
 }
-
-export interface StepOld{
-  id  : number
-  action? : string  
-  cards? : string[]
-  stage_contribution? : number
-  stack? : number
-  pot? : number
-  stage? : Stage
-}
-
 export interface PlayerState{  
   name? : string
   action? : string
@@ -139,203 +129,315 @@ export class NewPokerGameService {
     //game.players = this.getGameplayers()
     game.hands = this.getHands()
     
+    // game.hands.forEach(hand => {
+    //   console.log('Hand', hand.handId)
+    //   hand.steps.forEach( step => {
+    //     console.log('Step', step.stepId)
+    //     step.playerStates?.forEach( (player, key) => {
+    //       let str = `Playerstate: ${key}`
+    //       str += player.name != null ? `, Name: ${player.name}` : ''
+    //       str += player.action != null ? `, Action: ${player.action}` : ''
+    //       str += player.cards != null ? `, Cards: ${player.cards}` : ''
+    //       str += player.dealer != null ? `, Dealer: ${player.dealer}` : ''
+    //       str += player.seatstate != null ? `, Seatestate: ${player.seatstate}` : ''
+    //       str += player.stage_contribution != null ? `, Stage Contribution: ${player.stage_contribution}` : ''
+    //       str += player.stack != null ? `, Stack: ${player.stack}` : ''
+    //       str += player.next_to_act != null ? `, Next: ${player.next_to_act}` : ''
+    //       str += player.winner != null ? `, Winner: ${player.winner}` : ''
+    //       console.log( str)
+    //     })
+    //     let bstr = ``
+    //     bstr += step.boardState?.cards != null ? `cards: ${step.boardState?.cards}` : ''
+    //     bstr += step.boardState?.pot != null ? `, Pot:  ${step.boardState.pot}` : ''
+    //     bstr += step.boardState?.stage != null ? `, Stage:  ${step.boardState.stage}` : ''
+    //     if(bstr != ``){
+    //       console.log( bstr)
+    //     }
+          
+        
+    //   })
+    // })
     console.log('Game', game)
     return game
   }
 
   getHands(){
-    const newHands : Hand[] = []
+    const newHands : Hand[] = []    
     for (let i = 0; i < this.game.length; i++) {
-      const theHand : Hand = {handId : 0, totalTimeconstant: 0, totalSteps: 0, steps : []}
+      
+      const theHand : Hand = {handId : i, totalTimeconstant: 0, totalSteps: 0, steps : []}
       const initialState :State[] = []           
       const hand = this.game[i];
       const handEvents = this.rewriteHandeventToId(hand.hand_events, hand.active_players);
-      const activePlayers = hand.active_players;
-      const defeated_players = hand.defeated_players
-      const setupstep : Step = {stepId : 0, timeconstant: SETUP_TIMECONSTANT, playerStates : new Map<number, PlayerState>()}
-      
-      
-      activePlayers.forEach((obj, index) => {
-        const dealer = index == hand.active_players.length-1
-        const playerState : PlayerState = {
-          name : obj.name,
-          dealer : dealer,
-          stack : obj.stack,
-          cards : this.getcards(obj.id, handEvents), 
-          stage_contribution :  0,
-          seatstate : 'active'
-        }
-        setupstep.playerStates!.set(obj.id, playerState)
-        const state: State = {
-          id : obj.id,
-          name : obj.name,
-          stack : obj.stack, 
-          seatstate : 'active',
-          cards : this.getcards(index, hand.hand_events), 
-          dealer: dealer}
-        initialState.push(state)
-      })
-      defeated_players.forEach((obj) => {
-        const playerState : PlayerState = {
-          name : obj.name,
-          dealer : false,
-          stack : obj.stack,
-          cards : [],
-          stage_contribution :  0,
-          seatstate : 'out'
-        }
-        setupstep.playerStates!.set(obj.id, playerState)
 
-        const state: State = {
-          id : obj.id,
-          name : obj.name,
-          stack : obj.stack, 
-          seatstate : 'out', 
-          cards : [], 
-          dealer: false}
-        initialState.push(state)
-      })
 
+      const setupstep: Step = this.getSetupStep(hand, handEvents);
       theHand.steps.push(setupstep)
-      // console.log('TheHand', theHand)
+
+      let filteredHandevents = handEvents.filter(x => !(x.player != -1 && x.type == 'deal' || x.type == 'reward')); 
+
       
-      // let filteredHandevents = handEvents.filter(x => !(x.player != -1 && x.type == 'deal' || x.type == 'reward'));   
-    
-      // const steps : StepOld[] = []
-      // let currentStage = Stage.Preflop;
-      // let currentRaise = 0
-      // let betcontrol = new Map<number, BettingState>()
-      // let pot = 0
-      // hand.active_players.forEach(obj => {        
-      //   betcontrol.set(obj.id,this.getBettingState(obj))
-      // }
-      //   )
-      // let boardStepsLeft = 0
-      // const handeventsZip = this.getZipped(filteredHandevents)
-      // handeventsZip.forEach((obj, index) => {
-      //   let mainobj = obj[0]!;
-      //   const id = mainobj.player
-      //   let step : StepOld | null = null
-      //   if(mainobj.player != -1){
-      //     const actionNumber = mainobj.action
-      //     let bettingState = betcontrol.get(id)!
+      
+      let currentStage : Stage = Stage.Preflop;
+      let currentRaise = 0
+      let betcontrol = new Map<number, BettingState>()
+      let pot = 0
+      let community : string[] = []
+      hand.active_players.forEach(obj => {        
+        betcontrol.set(obj.id,this.getBettingState(obj))
+      }
+      )
+      let boardStepsLeft = 0
+      
+      filteredHandevents.forEach((obj, index) => {
+        let mainobj = obj!;
+        const id = mainobj.player
+        
+        
+        if(mainobj.player != -1){
+          let step : Step  = {stepId : index +1, timeconstant : NORMAL_TIMECONSTANT, playerStates : new Map<number, PlayerState>()}
+          const actionNumber = mainobj.action
+          let bettingState = betcontrol.get(id)!
 
-      //     currentRaise = actionNumber > 1 ? actionNumber : currentRaise
+          currentRaise = actionNumber > 1 ? actionNumber : currentRaise
           
-      //     bettingState = this.getUpdatedBettingState(actionNumber, bettingState, currentRaise)
-          
-      //     step = {
-      //       id  : mainobj.player,
-      //       action : this.setAction(mainobj.action, index, bettingState.currentstack == 0),
-      //       stage : currentStage,
-      //       stage_contribution : bettingState.stage_contribution,
-      //       stack : bettingState.currentstack                      
-      //     }
-      //   }else{
-      //     if(boardStepsLeft > 0){
-      //       boardStepsLeft -= 1
-      //     }else{
-      //       const cards = this.getCardsforBoard(obj)
-      //       boardStepsLeft = cards.length -1
-      //       currentStage = this.setStage(cards.length, currentStage)   
-      //       pot += this.calculatePot(betcontrol) 
-      //       step = {
-      //         id  : -1,
-      //         cards : cards,
-      //         stage : currentStage,
-      //         pot : pot           
-      //       }
-      //       betcontrol.forEach(obj => obj = this.resetStageBettingstate(obj))
+          bettingState = this.getUpdatedBettingState(actionNumber, bettingState, currentRaise)
+          //add reset of last actor
+          if(index != 0){
+            if(filteredHandevents[index-1].player!= -1){
+              step.playerStates!.set(filteredHandevents[index-1].player,{})
+            }          
+          }
+          //add Next_to_Add
+          if(index != filteredHandevents.length -1){
+            if(filteredHandevents[index+1].player!= -1){
+              step.playerStates!.set(filteredHandevents[index+1].player,{next_to_act : true})
+            }          
+          }
 
-      //     }          
-      //   }
-      //   if(step != null ){
-      //     steps.push(step)
-      //   }        
-      // })
-             
 
-     
+          step.playerStates!.set(mainobj.player,{            
+            action : this.setAction(mainobj.action, index, bettingState.currentstack == 0, bettingState.stage_contribution == 0),
+            stage_contribution : bettingState.stage_contribution,
+            stack : bettingState.currentstack,
+            next_to_act : false                     
+          } )
+          theHand.steps.push(step) 
+        }else{          
+          if(boardStepsLeft > 0){
+            boardStepsLeft -= 1
+          }else{
+            //pre stage
+            // logic hvis player har smidt mere i end andre, så får han noget tilbage igen?
+            //eller også vinder han det ved rewards? tag start af det andet game? 
+            let prestep: Step | undefined;
+            let newpot
+            ({ prestep, newpot } = this.preStage(pot, betcontrol));
+            pot = newpot
+            theHand.steps.push(prestep)
+            const cards = this.getCardsforBoard(filteredHandevents.slice(index, index+5))
+            community = community.concat(cards)
+            boardStepsLeft = cards.length -1            
+            
+            currentStage = this.setStage(cards.length, currentStage)   
+            
+            let boardstate : BoardState = {
+              cards : community,
+              stage : currentStage
+            }            
+            let playerstates =  new Map<number, PlayerState>()
+            if(index != filteredHandevents.length -1 - boardStepsLeft){
+              if(filteredHandevents[index + 1 + boardStepsLeft ].player!= -1){
+                playerstates.set(filteredHandevents[index + 1 + boardStepsLeft].player,{next_to_act : true})
+              }          
+            }
+            
+            let step : Step  = {stepId : index +2, timeconstant : STAGE_CHANGE_TIMECONSTANT, playerStates : playerstates, boardState : boardstate}
+            theHand.steps.push(step)
+            betcontrol.forEach(obj => obj = this.resetStageBettingstate(obj))
+          }          
+        }            
+      })
+      //preWinner where everyone fold
+      if(filteredHandevents[filteredHandevents.length-1].player != -1){
+        let prestep: Step | undefined;
+        let newpot
+        ({ prestep, newpot } = this.preStage(pot, betcontrol));
+        pot = newpot
+        theHand.steps.push(prestep)
+      }
+      //add winner logic
+      console.log('handEvents', handEvents)
+      const stages : Stage[] = theHand.steps.filter(x => x.boardState?.stage != null).map(x => x.boardState!.stage!)
+      const isShowdown = stages[stages.length-1] == Stage.Showdown
+         
+      
+      let rewards = handEvents.filter(x => x.type == 'reward');
+      let winnerPlayerstate = new Map<number, PlayerState>()
+      rewards.forEach(obj => {
+        winnerPlayerstate.set(obj.player, 
+          {stage_contribution : obj.reward! > 0 ? obj.reward! + (betcontrol.get(obj.player)!.totalStack - betcontrol.get(obj.player)!.currentstack) : 0,
+             winner : obj.reward! > 0 ? true : false, 
+             action : isShowdown ? this.getHandtype(obj.handtype!)  : undefined})            
+            })
+      
+      
+      let winnerboardstate : BoardState = {
+        pot : 0
+      }
+      let winnerstep : Step  = {stepId :  99, timeconstant : WINNER_TIMECONSTANT, playerStates : winnerPlayerstate, boardState : winnerboardstate}
+      theHand.steps.push(winnerstep)
       
       newHands.push(theHand)      
     }    
     return newHands
   }
+
+  getHandtype(handtype : string):string{
+    if(handtype == "TWOPAIR"){
+      return "Two Pairs"
+    }else if(handtype == "HIGHCARD"){
+      return "High Card"
+    }else if(handtype == "THREEOFAKIND"){
+      return "Three of a kind"
+    }else if(handtype == "PAIR"){
+      return "Pair"
+    }else if(handtype == "STRAIGHT"){
+      return "Straight"
+    }else if(handtype == "FLUSH"){
+      return "Flush"
+    }else if(handtype == "FULLHOUSE"){
+      return "Full House"
+    }else if(handtype == "FOUROFAKIND "){
+      return "Four of a kind"
+    }else if(handtype == "STRAIGHTFLUSH  "){
+      return "Straight Flush!!"
+    }
+    
+    return handtype
+  }
   
 
-  // calculatePot(bettingStates : Map<number, BettingState>): number{
-  //   let pot = 0;
-  //   bettingStates.forEach( obj => pot += obj.stage_contribution)
-  //   return pot
-  // }
+  private preStage(pot: number, betcontrol: Map<number, BettingState>) {
+    const newpot =  pot += this.calculatePot(betcontrol);
+    let preboardstate: BoardState = {
+      pot: newpot
+    };
 
-  // getBettingState(activePlayer :Players):BettingState {
-  //   return  {
-  //     totalStack : activePlayer.stack,
-  //     currentstack : activePlayer.stack,
-  //     id : activePlayer.id,
-  //     stage_contribution : 0,
-  //     previous_contribution : 0
-  //   }
-  // }
+    let preplayerstates = new Map<number, PlayerState>();
+    betcontrol.forEach(obj => preplayerstates.set(obj.id, { stage_contribution: 0 }));
 
-  // resetStageBettingstate(current :BettingState):BettingState {
-  //   const newbettingstate : BettingState = current;
-  //   newbettingstate.previous_contribution = current.previous_contribution + current.stage_contribution
-  //   newbettingstate.stage_contribution = 0
+    betcontrol.forEach(obj => obj = this.resetStageBettingstate(obj));
+    let prestep: Step = { stepId: 0, timeconstant: PRE_STAGE_CHANGE_TIMECONSTANT, playerStates: preplayerstates, boardState: preboardstate };
+    return { prestep, newpot };
+  }
+
+  private getSetupStep(hand: GameJSON, handEvents: HandEvent[]) {
+    const activePlayers = hand.active_players;
+    const defeated_players = hand.defeated_players;
+    const setupstep: Step = { stepId: 0, timeconstant: SETUP_TIMECONSTANT, playerStates: new Map<number, PlayerState>() };
+
+    activePlayers.forEach((obj, index) => {
+      const dealer = index == hand.active_players.length - 1;
+      const playerState: PlayerState = {
+        name: obj.name,
+        dealer: dealer,
+        stack: obj.stack,
+        cards: this.getcards(obj.id, handEvents),
+        stage_contribution: 0,
+        seatstate: 'active',
+        next_to_act: index == 0 ? true : false
+      };
+      setupstep.playerStates!.set(obj.id, playerState);
+    });
+    defeated_players.forEach((obj) => {
+      const playerState: PlayerState = {
+        name: obj.name,
+        dealer: false,
+        stack: obj.stack,
+        cards: [],
+        stage_contribution: 0,
+        seatstate: 'out',
+        next_to_act: false
+      };
+      setupstep.playerStates!.set(obj.id, playerState);
+    });
+    return setupstep;
+  }
+
+  calculatePot(bettingStates : Map<number, BettingState>): number{
+    let pot = 0;
+    bettingStates.forEach( obj => pot += obj.stage_contribution)
+    return pot
+  }
+
+  getBettingState(activePlayer :Players):BettingState {
+    return  {
+      totalStack : activePlayer.stack,
+      currentstack : activePlayer.stack,
+      id : activePlayer.id,
+      stage_contribution : 0,
+      previous_contribution : 0
+    }
+  }
+
+  resetStageBettingstate(current :BettingState):BettingState {
+    const newbettingstate : BettingState = current;
+    newbettingstate.previous_contribution = current.previous_contribution + current.stage_contribution
+    newbettingstate.stage_contribution = 0
     
-  //   return newbettingstate    
-  // }
+    return newbettingstate    
+  }
 
-  // getUpdatedBettingState(actionNumber: number, currentState: BettingState, currentRaise: number ):BettingState {
-  //   if(actionNumber == 0){
-  //     return currentState;
-  //   }
-  //   const updatedBettingState : BettingState =  currentState
+  getUpdatedBettingState(actionNumber: number, currentState: BettingState, currentRaise: number ):BettingState {
+    if(actionNumber == 0){
+      return currentState;
+    }
+    const updatedBettingState : BettingState =  currentState
 
-  //   let total_contribution = actionNumber > 1 ? actionNumber : currentRaise //call or raise
-  //   total_contribution = total_contribution <= currentState.totalStack ? total_contribution : currentState.totalStack //all in? 
-  //   let stage_contribution = total_contribution - currentState.previous_contribution //adjust bet to current stage
+    let total_contribution = actionNumber > 1 ? actionNumber : currentRaise //call or raise
+    total_contribution = total_contribution <= currentState.totalStack ? total_contribution : currentState.totalStack //all in? 
+    let stage_contribution = total_contribution - currentState.previous_contribution //adjust bet to current stage
 
-  //   updatedBettingState.stage_contribution = stage_contribution
-  //   updatedBettingState.currentstack = currentState.totalStack - currentState.previous_contribution - stage_contribution 
+    updatedBettingState.stage_contribution = stage_contribution
+    updatedBettingState.currentstack = currentState.totalStack - currentState.previous_contribution - stage_contribution 
 
-  //   return updatedBettingState;
-  // }
-
-
-  // setStage( numberOfCards : number, currentStage : Stage): Stage{
-  //   let newStage = Stage.Preflop
-  //   if(currentStage == Stage.Preflop){
-  //     if(numberOfCards == 3){
-  //       newStage = Stage.Flop
-  //     }else if ( numberOfCards == 5){
-  //       newStage = Stage.Showdown
-  //     }      
-  //   }else if(currentStage == Stage.Flop){
-  //     if(numberOfCards == 1){
-  //       newStage = Stage.Turn
-  //     }else if (numberOfCards == 2){
-  //       newStage = Stage.Showdown
-  //     }
-  //   }else if(currentStage == Stage.Turn){
-  //     newStage = Stage.River 
-  //   }    
-  //   return newStage
-  // }
+    return updatedBettingState;
+  }
 
 
+  setStage( numberOfCards : number, currentStage : Stage): Stage{
+    let newStage = Stage.Preflop
+    if(currentStage == Stage.Preflop){
+      if(numberOfCards == 3){
+        newStage = Stage.Flop
+      }else if ( numberOfCards == 5){
+        newStage = Stage.Showdown
+      }      
+    }else if(currentStage == Stage.Flop){
+      if(numberOfCards == 1){
+        newStage = Stage.Turn
+      }else if (numberOfCards == 2){
+        newStage = Stage.Showdown
+      }
+    }else if(currentStage == Stage.Turn){
+      newStage = Stage.River 
+    }
+    return newStage
+  }
 
-  // getCardsforBoard(events : (HandEvent|null)[]){
-  //   let cards : string[] = []
-  //   for (let i = 0; i < events.length; i++) {
-  //     if(events[i] == null ||events[i]?.player != -1){
-  //       break;
-  //     }
-  //     cards.push(events[i]?.action!)
-  //   }
-  //   return cards
-  // }
+
+
+  getCardsforBoard(events : (HandEvent|null)[]){
+    let cards : string[] = []
+    for (let i = 0; i < events.length; i++) {
+      if(events[i] == null ||events[i]?.player != -1){
+        break;
+      }
+      cards.push(events[i]?.action!)
+    }
+    return cards
+  }
 
   // getZipped(filteredHandevents : HandEvent[]){
   //   const Eventslength = filteredHandevents.length
@@ -358,24 +460,24 @@ export class NewPokerGameService {
     return cards
   }
 
-  // setAction(actionId: number, index : number, isAllin : boolean): Action{
-  //   let action = Action.Check
-  //   if( index == 0){
-  //     action = Action.SmallBlind
-  //   }else if (index == 1){
-  //     action = Action.BigBlind
-  //   }else if(actionId == 0){
-  //     action = Action.Fold
-  //   }else if(actionId == 1){
-  //     action =  Action.Call
-  //   }else if ( actionId > 1){
-  //     action =  Action.Raise
-  //   }
-  //   if(isAllin){
-  //     action = Action.AllIn
-  //   }
-  //   return action
-  // }
+  setAction(actionId: number, index : number, isAllin : boolean, noBet : boolean): Action{
+    let action = Action.Check
+    if( index == 0){
+      action = Action.SmallBlind
+    }else if (index == 1){
+      action = Action.BigBlind
+    }else if(actionId == 0){
+      action = Action.Fold
+    }else if(actionId == 1){
+      action = noBet ? Action.Check :Action.Call 
+    }else if ( actionId > 1){
+      action =  Action.Raise
+    }
+    if(isAllin){
+      action = Action.AllIn
+    }
+    return action
+  }
 
   rewriteHandeventToId(handevents : HandEvent[], players : Players[]): HandEvent[]{
     const newHandevents : HandEvent[] = []
@@ -386,7 +488,8 @@ export class NewPokerGameService {
           player : players[obj.player].id,
           action : obj.action,
           card : obj.card,
-          reward : obj.reward
+          reward : obj.reward,
+          handtype : obj.handtype
         })
       }else{
         newHandevents.push({
@@ -394,7 +497,8 @@ export class NewPokerGameService {
           player : obj.player,
           action : obj.action,
           card : obj.card,
-          reward : obj.reward
+          reward : obj.reward,
+          handtype : obj.handtype
         })
       }
       }
