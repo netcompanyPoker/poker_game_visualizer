@@ -3,6 +3,7 @@ import { Game, NewPokerGameService, Stage } from './new-poker-game.service';
 import { TestPokerGameService } from './test-poker-game.service';
 import { Subscription } from 'rxjs';
 import { SyncService } from '../sync/sync.service';
+import { HighlightService } from './highlight.service';
 
 @Component({
   selector: 'app-poker-game',
@@ -27,8 +28,9 @@ export class PokerGameComponent implements OnInit, OnChanges {
   constructor(
     private newPokerGameService: NewPokerGameService, 
     private testPokerGameService: TestPokerGameService, 
+    private highlightService: HighlightService, 
     private syncService: SyncService) {    
-    this.game = this.newPokerGameService.getTransformedData();    
+    this.game = this.highlightService.getHighlightedHands(newPokerGameService.game,this.newPokerGameService.getTransformedData()) ;    
     this.stage = Stage.Preflop;
   }
 

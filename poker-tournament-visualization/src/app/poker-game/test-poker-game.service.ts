@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Action, GameJSON, Hand, PlayerState, Step, SETUP_TIMECONSTANT, NORMAL_TIMECONSTANT, PRE_STAGE_CHANGE_TIMECONSTANT, BoardState, Stage, STAGE_CHANGE_TIMECONSTANT } from './new-poker-game.service';
+import { Action, HandJSON, Hand, PlayerState, Step, SETUP_TIMECONSTANT, NORMAL_TIMECONSTANT, PRE_STAGE_CHANGE_TIMECONSTANT, BoardState, Stage, STAGE_CHANGE_TIMECONSTANT } from './new-poker-game.service';
 import * as data from './Poker_History.json';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TestPokerGameService {
-  game: GameJSON[];
+  game: HandJSON[];
 
   constructor() {
     this.game = data
