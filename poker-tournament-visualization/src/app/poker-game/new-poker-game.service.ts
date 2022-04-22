@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as data from './Poker_History.json';
+import * as data from './output.json';
 
 export const SETUP_TIMECONSTANT = 5;
 export const NORMAL_TIMECONSTANT = 2;
@@ -18,6 +18,7 @@ export interface HandEvent {
   card?: string
   reward?: number
   handtype? : string
+  win_chance? : number
 }
 
 export interface HandJSON {
@@ -25,6 +26,7 @@ export interface HandJSON {
   active_players: Players[];
   defeated_players: Players[];
   hand_events: HandEvent[];
+  highlight_score?: number;
 }
 
 export interface NewPlayer{
@@ -489,7 +491,8 @@ export class NewPokerGameService {
           action : obj.action,
           card : obj.card,
           reward : obj.reward,
-          handtype : obj.handtype
+          handtype : obj.handtype,
+          win_chance : obj.win_chance
         })
       }else{
         newHandevents.push({
