@@ -10,7 +10,7 @@
       <ng-container matColumnDef="table">
         <mat-header-cell *matHeaderCellDef> Table file </mat-header-cell>
         <mat-cell *matCellDef="let element;" [formGroup]="element">
-          <mat-form-field floatLabel="never">
+          <mat-form-field floatLabel="never" style="width: 100%">
             <input matInput (change)="onTableChange($event, element)" placeholder="table1.json" formControlName="table"
               required>
           </mat-form-field>
@@ -37,8 +37,12 @@
 <br>
 <div id="play_controls_container">
   <div class="play_control">
+    <button id="load_button" (click)="loadForAll()">
+      Load
+    </button>
     <button id="play_button" (click)="startForAll()">
-      {{isPlaying ? "pause" : "play"}}
+      {{isPlaying ? "Pause" : "Play"}}
     </button>
   </div>
+  <p>{{status}}</p>
 </div>

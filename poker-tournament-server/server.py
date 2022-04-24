@@ -23,15 +23,18 @@ async def connect(websocket, path):
             await handle_connect(websocket, msg)
 
         if msg["cmd"] == "start":
-            await handle_start(msg["tables"] if "tables" in msg else None)
-
-
-async def handle_start(tables):
-    websockets.broadcast(get_connected_clients(),
-                         json.dumps({"cmd": "load", "table": tables}))
+            await handle_start()
+        
+        if msg["cmd"] == "load":
+            await handle_load(msg["tables"] if "tables" in msg else None)
+        
+async def handle_start():
     websockets.broadcast(get_connected_clients(),
                          json.dumps({"cmd": "start"}))
 
+async def handle_load(tables):
+    websockets.broadcast(get_connected_clients(),
+                         json.dumps({"cmd": "load", "table": tables}))
 
 async def handle_connect(websocket, msg):
     id = choice(list(VALID_IDS - clients.keys() - control_panels.keys()))  

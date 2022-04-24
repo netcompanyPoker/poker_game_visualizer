@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
 import { SyncModule } from './sync/sync.module';
 import { ControlPanelModule } from './control-panel/control-panel.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,9 +20,10 @@ import { ControlPanelModule } from './control-panel/control-panel.module';
     MatSliderModule,
     SyncModule,
     ControlPanelModule,
+    HttpClientModule,
   ],
   exports: [],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

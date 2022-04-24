@@ -111,5 +111,11 @@ export class ControlPanelComponent implements OnInit, OnDestroy {
 
   startForAll() {
     this.service.sendMessage({ cmd: 'start', tables: this.form.value['tables'] });
+    this.status = "sent start command"
+  }
+
+  loadForAll() {
+    this.service.sendMessage({ cmd: 'load', tables: this.form.value['tables'] });
+    this.status = "sent load command"
   }
 }
