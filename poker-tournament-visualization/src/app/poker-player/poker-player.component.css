@@ -281,8 +281,12 @@ p.name {
 }
 
 .state_fold .player__call,
-.state_fold .player__cards {
+.state_fold .player__cards {  
   display: none;
+}
+
+.state_fold .player__avatar{  
+  filter: brightness(0.5);
 }
 
 /********************************************************************************/

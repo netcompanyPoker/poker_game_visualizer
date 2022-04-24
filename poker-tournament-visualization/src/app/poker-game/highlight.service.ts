@@ -10,7 +10,7 @@ export class HighlightService {
 
 
 
-  getHighlightedHands(gameRaw : HandJSON[], gameTransformed : Game) : Game{
+  getHighlightedHands(gameRaw : HandJSON[], gameTransformed : Game) : Number[]{
     const highlightedGame : Game = {hands : []}
 
     //add highlight logic
@@ -26,7 +26,7 @@ export class HighlightService {
 
     highlightedGame.hands = gameTransformed.hands.filter(x => highlights.some(idx => idx === x.handId))
 
-    return highlightedGame    
+    return [1, 4, 5, 200] //highlightedGame.hands.map(x => x.handId)   
   }
 
   addHandScores(hands: HandJSON[]){
