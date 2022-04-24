@@ -47,11 +47,11 @@ def get_all_bots():
         bots_csv = f.readlines()
 
     for bot in bots_csv:
-        player_name, bot_location = bot.split(";")
-        get_zip(player_name, bot_location, timestamp)
+        player_name, bot_location, table = bot.split(";")
+        get_zip(player_name.strip(), bot_location.strip(), timestamp, table.strip())
 
 
-def get_zip(player_name, bot_location, timestamp):
+def get_zip(player_name, bot_location, timestamp, table):
     response = requests.get(
         f'https://replit.com/{bot_location}.zip',
         headers=headers,
@@ -64,10 +64,11 @@ def get_zip(player_name, bot_location, timestamp):
 
     username, reponame = bot_location.split('/')
     player_name_without_at = username.split('@')[-1]
+    print(f"Downloaded table {table} '{username}' bot '{reponame}'.")
 
     z = zipfile.ZipFile(io.BytesIO(response.content))
     z.extractall(
-        path=f'bots/{timestamp}/{player_name_without_at}-{reponame}')
+        path=f'bots/{timestamp}/{table}/{player_name_without_at}-{reponame}')
     z.close()
 
 
