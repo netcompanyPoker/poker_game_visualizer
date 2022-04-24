@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import * as data from './output.json';
 
-export const SETUP_TIMECONSTANT = 3000;
-export const NORMAL_TIMECONSTANT = 1500;
-export const PRE_STAGE_CHANGE_TIMECONSTANT = 1800;
-export const STAGE_CHANGE_TIMECONSTANT = 3000;
-export const WINNER_TIMECONSTANT = 1800;
+export const SETUP_TIMECONSTANT = 10;
+export const NORMAL_TIMECONSTANT = 5;
+export const PRE_STAGE_CHANGE_TIMECONSTANT = 6;
+export const STAGE_CHANGE_TIMECONSTANT = 10;
+export const WINNER_TIMECONSTANT = 6;
 export interface Players {
   name: string;
   id: number;
@@ -210,7 +210,7 @@ export class NewPokerGameService {
             community = community.concat(cards)
             boardStepsLeft = cards.length -1            
             
-            currentStage = this.setStage(cards.length, currentStage)   
+            currentStage = this.setStage(cards.length, currentStage, index == filteredHandevents.length -1)   
             
             let boardstate : BoardState = {
               cards : community,
@@ -290,6 +290,7 @@ export class NewPokerGameService {
   
 
   private preStage(pot: number, betcontrol: Map<number, BettingState>) {
+
     const newpot =  pot += this.calculatePot(betcontrol);
     let preboardstate: BoardState = {
       pot: newpot
@@ -334,6 +335,17 @@ export class NewPokerGameService {
       setupstep.playerStates!.set(obj.id, playerState);
     });
     return setupstep;
+  }
+
+  isOverkill(bettingStates : Map<number, BettingState>): boolean{
+    const sortedBettingStates  : BettingState[] = Object.values(bettingStates).sort((a,b) => b.stage_contribution - a.stage_contribution)
+    if(sortedBettingStates.filter(x => x.currentstack == 0).length == 0 ){
+      return false
+    }
+    if(sortedBettingStates.filter(x => x.stage_contribution == sortedBettingStates[0].stage_contribution).length == 1){
+      return true
+    }   
+    return false
   }
 
   calculatePot(bettingStates : Map<number, BettingState>): number{
@@ -383,7 +395,7 @@ export class NewPokerGameService {
   }
 
 
-  setStage( numberOfCards : number, currentStage : Stage): Stage{
+  setStage( numberOfCards : number, currentStage : Stage, islaststep: boolean): Stage{
     let newStage = Stage.Preflop
     if(currentStage == Stage.Preflop){
       if(numberOfCards == 3){
@@ -398,7 +410,11 @@ export class NewPokerGameService {
         newStage = Stage.Showdown
       }
     }else if(currentStage == Stage.Turn){
-      newStage = Stage.River 
+      if(islaststep){
+        newStage = Stage.Showdown
+      }else{
+        newStage = Stage.River 
+      }      
     }
     return newStage
   }
