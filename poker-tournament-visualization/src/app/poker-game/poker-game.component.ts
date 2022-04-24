@@ -1,5 +1,5 @@
 import { Component, OnChanges, OnInit } from '@angular/core';
-import { Game, NewPokerGameService, Stage } from './new-poker-game.service';
+import { Game, NewPokerGameService, Stage, Hand } from './new-poker-game.service';
 import { TestPokerGameService } from './test-poker-game.service';
 import { Subscription } from 'rxjs';
 import { SyncService } from '../sync/sync.service';
@@ -12,17 +12,16 @@ import { HighlightService } from './highlight.service';
 })
 export class PokerGameComponent implements OnInit, OnChanges {
   syncSubscription: Subscription | undefined;
-  highlightHandIds: Number[];
+  highlightHandIds: number[];
+  secondsToSee : number = 5*60
   game: Game;
   stage: Stage;
   actionIdx: number = 0;
-  handIdx: number = 0;
-  isPlay: boolean = false;
-  speed: number = 200;
-  handCount: number = 11;
-  interestingHands: number[] = []
+  handIdx: number;
+  isPlay: boolean = false; 
   interestingHandIdx = 0;
-  interval: any;
+  interestingHands : Hand[] = []
+  endReached : boolean = false
 
   constructor(
     private newPokerGameService: NewPokerGameService, 
@@ -30,7 +29,8 @@ export class PokerGameComponent implements OnInit, OnChanges {
     private highlightService: HighlightService, 
     private syncService: SyncService) {
     this.game = this.newPokerGameService.getTransformedData()
-    this.highlightHandIds = this.highlightService.getHighlightedHands(newPokerGameService.game,this.game);
+    this.highlightHandIds = this.highlightService.getHighlightedHands(newPokerGameService.game,this.game, this.secondsToSee*0.001);
+    this.handIdx = this.highlightHandIds[0];
     this.stage = Stage.Preflop;
   }
 
@@ -55,36 +55,36 @@ export class PokerGameComponent implements OnInit, OnChanges {
   toggle() {
     this.isPlay = !this.isPlay;
     if (this.isPlay) {
-      let endReached = false;
+      this.endReached = false;
       this.interestingHandIdx = 0;
-      let interestingHands = this.game.hands.filter( x => this.highlightHandIds.includes(x.handId));
-      this.handSliderOnChange(interestingHands[this.interestingHandIdx].handId);
-      
-      this.interval = setTimeout(() => {
-        if (this.isPlay) {
-          if (this.actionIdx < this.getMaxActions()) {
-            this.sliderOnChange(this.actionIdx + 1);
-          } else if (this.actionIdx == this.getMaxActions() && endReached) {
-            this.interestingHandIdx += 1;
-            endReached = false;
-            if (this.interestingHandIdx < this.highlightHandIds.length -1) {
-              this.handSliderOnChange(interestingHands[this.interestingHandIdx].handId);
-            } else {
-              this.handSliderOnChange(this.getMaxHands());
-              this.sliderOnChange(this.getMaxActions());
-              this.toggle();
-            }
-          } else {
-            endReached = true;
-          }
+      this.interestingHands = this.game.hands.filter( x => this.highlightHandIds.includes(x.handId));
+      this.handSliderOnChange(this.interestingHands[this.interestingHandIdx].handId);     
+      this.movestep()        
+           
+    } 
+  }
 
-        }
-      }, this.speed * this.game.hands[this.interestingHandIdx].steps[this.actionIdx].timeconstant);
-    } else {
-      if (this.interval) {
-        clearInterval(this.interval)
-      }
-    }
+  movestep(){    
+    setTimeout(() => {
+      if(this.isPlay){
+        if (this.actionIdx < this.getMaxActions()) {
+          this.sliderOnChange(this.actionIdx + 1);
+        }else if (this.actionIdx == this.getMaxActions() && this.endReached) {
+          this.interestingHandIdx += 1;
+          this.endReached = false;
+          if (this.interestingHandIdx < this.highlightHandIds.length -1) {
+            this.handSliderOnChange(this.interestingHands[this.interestingHandIdx].handId);
+          } else {
+            this.handSliderOnChange(this.getMaxHands());
+            this.sliderOnChange(this.getMaxActions());
+            this.toggle();
+          }
+        }else{
+          this.endReached = true;
+        }        
+        this.movestep()  
+      }            
+    }, this.interestingHands[this.interestingHandIdx].steps[this.actionIdx].timeconstant);
   }
 
   setStage(val?: number): void {

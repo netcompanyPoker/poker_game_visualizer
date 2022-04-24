@@ -18,8 +18,8 @@ export class CardGroupComponent implements core.OnInit, core.OnChanges {
   }
 
   ngOnChanges(changes: { [property: string]: core.SimpleChange }): void {
-    console.log('card group changes');
-    console.log(JSON.stringify(changes));
+    //console.log('card group changes');
+    //console.log(JSON.stringify(changes));
     this.cardsToShow = this.cards.map(this.mapToAsset).map(this.mapToPath);
   }
 
