@@ -30,7 +30,7 @@ export class SyncService {
   public connect(cfg: { reconnect: boolean } = { reconnect: false }): void {
     if (!this.socket$ || this.socket$.closed) {
       this.socket$ = this.getNewWebSocket();
-      this.socket$.subscribe(
+      this.socket$!.subscribe(
         (msg) => {
           console.log('message received: ' + JSON.stringify(msg));
           this.messagesSubject$.next(msg);
@@ -38,7 +38,7 @@ export class SyncService {
         (err) => console.log(err), // Called if at any point WebSocket API signals some kind of error.
         () => console.log('complete') // Called when connection is closed (for whatever reason).
       );
-      const messages = this.socket$.pipe(
+      const messages = this.socket$!.pipe(
         cfg.reconnect ? this.reconnect : (o) => o,
         tap({
           error: (error) => console.log('abc' + error),
