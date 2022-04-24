@@ -176,7 +176,7 @@ export class NewPokerGameService {
       const setupstep: Step = this.getSetupStep(hand, handEvents);
       theHand.steps.push(setupstep)
 
-      let filteredHandevents = handEvents.filter(x => !(x.player != -1 && x.type == 'deal' || x.type == 'reward')); 
+      let filteredHandevents = handEvents.filter(x => !(x.player != -1 && x.type == 'deal' || x.type == 'reward' || x.type == 'win_chance')); 
 
       
       

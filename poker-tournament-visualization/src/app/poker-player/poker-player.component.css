@@ -280,12 +280,12 @@ p.name {
   display: none;
 }
 
-.state_fold .player__call,
-.state_fold .player__cards {  
+.state_fold .player__call{  
   display: none;
 }
 
-.state_fold .player__avatar{  
+.state_fold .player__avatar,
+.state_fold .player__cards{  
   filter: brightness(0.5);
 }
 
