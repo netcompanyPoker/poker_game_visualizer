@@ -207,7 +207,8 @@ export class NewPokerGameService {
           //add reset of last actor
           if(index != 0){
             if(filteredHandevents[index-1].player!= -1){
-              step.playerStates!.set(filteredHandevents[index-1].player,{})
+              const playerfolded = filteredHandevents[index-1]?.action == 0
+              step.playerStates!.set(filteredHandevents[index-1].player,{seatstate : playerfolded? 'fold' :'active'})
             }          
           }
           //add Next_to_Add
