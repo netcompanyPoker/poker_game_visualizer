@@ -10,7 +10,7 @@ export class HighlightService {
 
 
 
-  getHighlightedHands(gameRaw : HandJSON[], gameTransformed : Game) : Number[]{
+  getHighlightedHands(gameRaw : HandJSON[], gameTransformed : Game, timerestrain: number) : number[]{
     const highlightedGame : Game = {hands : []}
 
     //add highlight logic
@@ -19,14 +19,18 @@ export class HighlightService {
       gameList.push(gameRaw[i])
     }
     this.addHandScores(gameList)
-    const highlights = gameList.sort((a, b) => (b.highlight_score ?? 0) - (a.highlight_score ?? 0))
-                      .slice(0, 15)
-                      .map(x => x.hand_count)
-                      .sort((a,b) => a - b)
-
-    highlightedGame.hands = gameTransformed.hands.filter(x => highlights.some(idx => idx === x.handId))
-
-    return [1, 4, 5, 200] //highlightedGame.hands.map(x => x.handId)   
+    const sortedGames = gameList.sort((a, b) => (b.highlight_score ?? 0) - (a.highlight_score ?? 0))                      
+                      .map(x => x.hand_count);
+    const highlights : number[] = []
+    var sumTimeConstant : number = 0
+    sortedGames.forEach( x => {
+      if(timerestrain > sumTimeConstant){
+        sumTimeConstant = sumTimeConstant + gameTransformed.hands[x].totalTimeconstant
+        highlights.push(x)
+      }   
+    })    
+    console.log('highlight', highlights.sort((a,b) => a -b))
+    return highlights.sort((a,b) => a -b)
   }
 
   addHandScores(hands: HandJSON[]){

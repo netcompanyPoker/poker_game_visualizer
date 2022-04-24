@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import * as data from './output.json';
 
-export const SETUP_TIMECONSTANT = 5;
-export const NORMAL_TIMECONSTANT = 2;
-export const PRE_STAGE_CHANGE_TIMECONSTANT = 0.5;
-export const STAGE_CHANGE_TIMECONSTANT = 10;
-export const WINNER_TIMECONSTANT = 10;
+export const SETUP_TIMECONSTANT = 3000;
+export const NORMAL_TIMECONSTANT = 1500;
+export const PRE_STAGE_CHANGE_TIMECONSTANT = 1800;
+export const STAGE_CHANGE_TIMECONSTANT = 3000;
+export const WINNER_TIMECONSTANT = 1800;
 export interface Players {
   name: string;
   id: number;
@@ -87,9 +87,9 @@ export interface BettingState{
   totalStack : number
 }
 export interface Hand{
-  handId : Number
-  totalTimeconstant : Number
-  totalSteps : Number
+  handId : number
+  totalTimeconstant : number
+  totalSteps : number
   steps : Step[]
 }
 
@@ -128,38 +128,7 @@ export class NewPokerGameService {
 
   getTransformedData(){
     const game: Game = {hands : []}
-    //game.players = this.getGameplayers()
-    game.hands = this.getHands()
-    
-    // game.hands.forEach(hand => {
-    //   console.log('Hand', hand.handId)
-    //   hand.steps.forEach( step => {
-    //     console.log('Step', step.stepId)
-    //     step.playerStates?.forEach( (player, key) => {
-    //       let str = `Playerstate: ${key}`
-    //       str += player.name != null ? `, Name: ${player.name}` : ''
-    //       str += player.action != null ? `, Action: ${player.action}` : ''
-    //       str += player.cards != null ? `, Cards: ${player.cards}` : ''
-    //       str += player.dealer != null ? `, Dealer: ${player.dealer}` : ''
-    //       str += player.seatstate != null ? `, Seatestate: ${player.seatstate}` : ''
-    //       str += player.stage_contribution != null ? `, Stage Contribution: ${player.stage_contribution}` : ''
-    //       str += player.stack != null ? `, Stack: ${player.stack}` : ''
-    //       str += player.next_to_act != null ? `, Next: ${player.next_to_act}` : ''
-    //       str += player.winner != null ? `, Winner: ${player.winner}` : ''
-    //       console.log( str)
-    //     })
-    //     let bstr = ``
-    //     bstr += step.boardState?.cards != null ? `cards: ${step.boardState?.cards}` : ''
-    //     bstr += step.boardState?.pot != null ? `, Pot:  ${step.boardState.pot}` : ''
-    //     bstr += step.boardState?.stage != null ? `, Stage:  ${step.boardState.stage}` : ''
-    //     if(bstr != ``){
-    //       console.log( bstr)
-    //     }
-          
-        
-    //   })
-    // })
-    console.log('Game', game)
+    game.hands = this.getHands()        
     return game
   }
 
@@ -167,8 +136,7 @@ export class NewPokerGameService {
     const newHands : Hand[] = []    
     for (let i = 0; i < this.game.length; i++) {
       
-      const theHand : Hand = {handId : i, totalTimeconstant: 0, totalSteps: 0, steps : []}
-      const initialState :State[] = []           
+      const theHand : Hand = {handId : this.game[i].hand_count, totalTimeconstant: 0, totalSteps: 0, steps : []}             
       const hand = this.game[i];
       const handEvents = this.rewriteHandeventToId(hand.hand_events, hand.active_players);
 
@@ -269,8 +237,7 @@ export class NewPokerGameService {
         pot = newpot
         theHand.steps.push(prestep)
       }
-      //add winner logic
-      console.log('handEvents', handEvents)
+      //add winner logic      
       const stages : Stage[] = theHand.steps.filter(x => x.boardState?.stage != null).map(x => x.boardState!.stage!)
       const isShowdown = stages[stages.length-1] == Stage.Showdown
          
@@ -290,7 +257,8 @@ export class NewPokerGameService {
       }
       let winnerstep : Step  = {stepId :  99, timeconstant : WINNER_TIMECONSTANT, playerStates : winnerPlayerstate, boardState : winnerboardstate}
       theHand.steps.push(winnerstep)
-      
+      theHand.totalTimeconstant = this.calculateTotalTimeconstant(theHand.steps)
+      theHand.totalSteps = theHand.steps.length
       newHands.push(theHand)      
     }    
     return newHands
@@ -374,6 +342,12 @@ export class NewPokerGameService {
     return pot
   }
 
+  calculateTotalTimeconstant(steps : Step[]): number{
+    let totaltimeconstant = 0;
+    steps.forEach( obj => totaltimeconstant += obj.timeconstant)
+    return totaltimeconstant
+  }
+
   getBettingState(activePlayer :Players):BettingState {
     return  {
       totalStack : activePlayer.stack,
@@ -441,21 +415,6 @@ export class NewPokerGameService {
     }
     return cards
   }
-
-  // getZipped(filteredHandevents : HandEvent[]){
-  //   const Eventslength = filteredHandevents.length
-  //   return filteredHandevents.map(function(e, i) {
-  //     return [e, Eventslength-(i+1) >= 0 ?  filteredHandevents[i+1] : null ,
-  //     Eventslength-(i+2) >= 0 ?  filteredHandevents[i+2] : null,
-  //     Eventslength-(i+3) >= 0 ?  filteredHandevents[i+3] : null,
-  //     Eventslength-(i+4) >= 0 ?  filteredHandevents[i+4] : null];
-  //   });
-  // }
-
-  // getEventfromList(length : number, iterator : number, events : HandEvent[]): HandEvent | null{
-  //   return length-(iterator) >= 0 ?  events[iterator] : null
-  // }
-
 
   getcards(id: number, hand: HandEvent[]): string[]{
     const playercards = hand.filter(x=> x.type == 'deal' && x.player == id)
