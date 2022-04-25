@@ -78,6 +78,9 @@ export class PokerTableComponent implements OnInit, OnChanges {
     if(newPlayerState.winner != null){
       playerState.winner = newPlayerState.winner
     }
+    if(newPlayerState.out_position != null){
+      playerState.out_position = newPlayerState.out_position
+    }
     return playerState
   }
   

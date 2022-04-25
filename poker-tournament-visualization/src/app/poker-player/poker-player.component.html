@@ -11,6 +11,7 @@
             <div class="player__information--score">${{player.stack}}</div> 
             <!-- <div *ngIf="player.seatstate === 'small-blind' && player.winner != true" class="player__information--small-blind">Small blind</div>
             <div *ngIf="player.seatstate === 'big-blind' && player.winner != true" class="player__information--big-blind">Big blind</div> -->
+            <div *ngIf="player.seatstate === 'out'" class="player__information--big-blind">#{{player.out_position!}}</div>
             <div *ngIf="player.dealer && player.winner != true" class="player__information--dealer">Dealer</div>
             <div *ngIf="player.winner" class="player__information--winner">Winner</div>
         </div>

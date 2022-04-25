@@ -67,6 +67,7 @@ export interface PlayerState {
   dealer?: boolean
   next_to_act?: boolean
   winner?: boolean
+  out_position?: number
 }
 
 export interface BoardState {
@@ -329,6 +330,7 @@ export class NewPokerGameService {
     const activePlayers = hand.active_players;
     const defeated_players = hand.defeated_players;
     const setupstep: Step = { stepId: 0, timeconstant: SETUP_TIMECONSTANT, playerStates: new Map<number, PlayerState>() };
+    const playerCount = activePlayers.length + defeated_players.length
 
     activePlayers.forEach((obj, index) => {
       const dealer = index == hand.active_players.length - 1;
@@ -343,7 +345,7 @@ export class NewPokerGameService {
       };
       setupstep.playerStates!.set(obj.id, playerState);
     });
-    defeated_players.forEach((obj) => {
+    defeated_players.forEach((obj, idx) => {
       const playerState: PlayerState = {
         name: obj.name,
         dealer: false,
@@ -351,7 +353,8 @@ export class NewPokerGameService {
         cards: [],
         stage_contribution: 0,
         seatstate: 'out',
-        next_to_act: false
+        next_to_act: false,
+        out_position: playerCount-idx
       };
       setupstep.playerStates!.set(obj.id, playerState);
     });
