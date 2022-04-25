@@ -23,7 +23,7 @@ export class PokerGameComponent implements OnInit, OnChanges {
   interestingHandIdx = 0;
   interestingHands: Hand[] = []
   endReached: boolean = false
-  speed: number = 100
+  speed: number = 300
 
   constructor(
     private newPokerGameService: NewPokerGameService,
