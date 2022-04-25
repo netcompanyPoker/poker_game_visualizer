@@ -114,7 +114,7 @@ export class PokerGameComponent implements OnInit, OnChanges {
         } else if (this.actionIdx == this.getMaxActions() && this.endReached) {
           this.interestingHandIdx += 1;
           this.endReached = false;
-          if (this.highlightHandIds && this.interestingHandIdx < this.highlightHandIds.length - 1) {
+          if (this.highlightHandIds && this.interestingHandIdx < this.highlightHandIds.length) {
             this.handSliderOnChange(this.interestingHands[this.interestingHandIdx].handId);
           } else {
             this.handSliderOnChange(this.getMaxHands());
