@@ -224,6 +224,8 @@ export class NewPokerGameService {
             let prestep: Step | undefined;
             let newpot
             ({ prestep, newpot } = this.preStage(pot, betcontrol));
+            const playerfolded = filteredHandevents[index - 1]?.action == 0
+            prestep.playerStates?.set(filteredHandevents[index-1].player, {stage_contribution : 0, seatstate: playerfolded ? 'fold' : 'active'})
             pot = newpot
             theHand.steps.push(prestep)
             const cards = this.getCardsforBoard(filteredHandevents.slice(index, index + 5))
