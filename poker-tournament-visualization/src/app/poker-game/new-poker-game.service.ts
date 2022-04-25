@@ -314,14 +314,23 @@ export class NewPokerGameService {
 
 
   private preStage(pot: number, betcontrol: Map<number, BettingState>) {
-
+    const overkill = this.getoverkill(betcontrol);
+    if(overkill != null){
+      var tempBettingState : BettingState | undefined = betcontrol.get(overkill.id)
+      if(tempBettingState != null){
+        tempBettingState.stage_contribution = tempBettingState.stage_contribution - overkill.overkill
+        tempBettingState.currentstack = tempBettingState.currentstack + overkill.overkill
+        betcontrol.set(overkill.id, tempBettingState)
+      }   
+      
+    }   
     const newpot = pot += this.calculatePot(betcontrol);
     let preboardstate: BoardState = {
       pot: newpot
     };
 
     let preplayerstates = new Map<number, PlayerState>();
-    betcontrol.forEach(obj => preplayerstates.set(obj.id, { stage_contribution: 0 }));
+    betcontrol.forEach(obj => preplayerstates.set(obj.id, { stage_contribution: 0, stack : obj.currentstack }));
 
     betcontrol.forEach(obj => obj = this.resetStageBettingstate(obj));
     let prestep: Step = { stepId: 0, timeconstant: PRE_STAGE_CHANGE_TIMECONSTANT, playerStates: preplayerstates, boardState: preboardstate };
@@ -363,15 +372,20 @@ export class NewPokerGameService {
     return setupstep;
   }
 
-  isOverkill(bettingStates: Map<number, BettingState>): boolean {
-    const sortedBettingStates: BettingState[] = Object.values(bettingStates).sort((a, b) => b.stage_contribution - a.stage_contribution)
-    if (sortedBettingStates.filter(x => x.currentstack == 0).length == 0) {
-      return false
-    }
+  getoverkill(bettingStates: Map<number, BettingState>){    
+    
+    const BettingStageList : BettingState[]= []
+    bettingStates.forEach(obj => {
+      BettingStageList.push(obj)
+    }) 
+    const sortedBettingStates: BettingState[] = BettingStageList.sort((a, b) => b.stage_contribution - a.stage_contribution) 
     if (sortedBettingStates.filter(x => x.stage_contribution == sortedBettingStates[0].stage_contribution).length == 1) {
-      return true
+      const overkill = sortedBettingStates[0].stage_contribution - sortedBettingStates[1].stage_contribution
+      const overkillBettingstate  = {id: sortedBettingStates[0].id, overkill : overkill}
+      return overkillBettingstate
     }
-    return false
+
+    return null;
   }
 
   calculatePot(bettingStates: Map<number, BettingState>): number {
