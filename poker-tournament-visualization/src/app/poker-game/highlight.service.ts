@@ -34,14 +34,11 @@ export class HighlightService {
   }
 
   addHandScores(hands: HandJSON[]){
-    //var handScores = new Map<number, number>()
     for (let i = 0; i < hands.length; i++) {
       const handData = hands[i];
       const defeatedPlayersNextHandOrUndefined = hands[i+1]?.defeated_players
       hands[i].highlight_score = this.getHandScore(handData, defeatedPlayersNextHandOrUndefined)
-      //handScores.set(i, this.getHandScore(handData, defeatedPlayersNextHandOrUndefined))
     }
-    //return handScores
   }
 
   getHandScore(handData: HandJSON, defeatedPlayersNextHandOrUndefined?: Players[]): number{
@@ -74,7 +71,7 @@ export class HighlightService {
     const rewards = handData.hand_events.filter((x) => x.type === "reward").map((x) => x.reward ?? 0) 
     const potSize = rewards.filter((x) => x > 0).reduce((acc, x) => acc + x)
     const potSizeInBigBlinds = potSize / bigBlind
-    return potSizeInBigBlinds * 1
+    return potSizeInBigBlinds * 1 + (potSize * 0.001)
   }
 
   getOutplayScore(handData: HandJSON): number {
