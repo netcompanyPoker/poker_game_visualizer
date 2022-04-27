@@ -1,4 +1,5 @@
 <div *ngIf="player.seatstate !== 'not-active'" class="player" class="state_{{player.seatstate}}">
+    <div *ngIf="player.win_chance" class="player__win--chance">{{player.win_chance}}%</div>
     <div *ngIf="player.action" class="player__call">{{player.action}}</div>
     <div>
         <div class="player__avatar" [ngStyle]="{'background-color':visualSettings[playerNo].color}"

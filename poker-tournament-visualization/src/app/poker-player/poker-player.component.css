@@ -126,6 +126,14 @@ p.name {
   text-align: center;
 }
 
+.player .player__win--chance{
+  position: fixed;
+  left: 41%;
+  top: 4%;
+  color: white;
+  font-size: 1rem;
+}
+
 .player .player__avatar {
   border: 6px solid rgba(0, 0, 0, 0.3);
   display: flex;
