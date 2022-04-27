@@ -306,9 +306,9 @@ export class NewPokerGameService {
       return "Flush"
     } else if (handtype == "FULLHOUSE") {
       return "Full House"
-    } else if (handtype == "FOUROFAKIND ") {
+    } else if (handtype == "FOUROFAKIND") {
       return "Four of a kind"
-    } else if (handtype == "STRAIGHTFLUSH  ") {
+    } else if (handtype == "STRAIGHTFLUSH") {
       return "Straight Flush!!"
     }
 
