@@ -223,7 +223,8 @@ export class NewPokerGameService {
             //eller også vinder han det ved rewards? tag start af det andet game? 
             let prestep: Step | undefined;
             let newpot
-            ({ prestep, newpot } = this.preStage(pot, betcontrol));
+            const onlyOneLeft = hand.active_players.length - filteredHandevents.slice(0,index).filter(x => x.type == 'action' && x.action == 0).length == 1;
+            ({ prestep, newpot } = this.preStage(pot, betcontrol, onlyOneLeft));
             const playerfolded = filteredHandevents[index - 1]?.action == 0
             prestep.playerStates?.set(filteredHandevents[index-1].player, {stage_contribution : 0, seatstate: playerfolded ? 'fold' : 'active'})
             pot = newpot
@@ -253,9 +254,11 @@ export class NewPokerGameService {
       })
       //preWinner where everyone fold
       if (filteredHandevents[filteredHandevents.length - 1].player != -1) {
+        const onlyOneLeft = hand.active_players.length - filteredHandevents.filter(x => x.type == 'action' && x.action == 0).length == 1;
+            
         let prestep: Step | undefined;
         let newpot
-        ({ prestep, newpot } = this.preStage(pot, betcontrol));
+        ({ prestep, newpot } = this.preStage(pot, betcontrol, onlyOneLeft));
         pot = newpot
         theHand.steps.push(prestep)
       }
@@ -313,9 +316,10 @@ export class NewPokerGameService {
   }
 
 
-  private preStage(pot: number, betcontrol: Map<number, BettingState>) {
+  private preStage(pot: number, betcontrol: Map<number, BettingState>, onlyOneLeft : boolean) {
     const overkill = this.getoverkill(betcontrol);
-    if(overkill != null){
+    if(overkill != null && !onlyOneLeft){
+      console.log('Overkill Id')
       var tempBettingState : BettingState | undefined = betcontrol.get(overkill.id)
       if(tempBettingState != null){
         tempBettingState.stage_contribution = tempBettingState.stage_contribution - overkill.overkill
