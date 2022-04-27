@@ -177,5 +177,8 @@ input {
 
 .sync {
   display: flex;
+}
 
+.hide {
+  display: none;
 }

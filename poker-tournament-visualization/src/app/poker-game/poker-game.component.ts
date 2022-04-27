@@ -24,6 +24,7 @@ export class PokerGameComponent implements OnInit, OnChanges {
   interestingHands: Hand[] = []
   endReached: boolean = false
   speed: number = 300
+  showControls = false
 
   constructor(
     private newPokerGameService: NewPokerGameService,
@@ -86,6 +87,10 @@ export class PokerGameComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
+  }
+
+  toggleControls(){
+    this.showControls = !this.showControls
   }
 
   toggle() {

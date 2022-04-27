@@ -242,6 +242,7 @@ app-dual-stack {
 
 /* community */
 .poker-table .poker-table__community {
+  z-index: 1; 
   position: absolute;
   display: flex;
   justify-content: center;

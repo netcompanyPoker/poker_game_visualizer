@@ -10,7 +10,13 @@
     <!--------------------------------------------------->
     <!-- NAVIGATION SMALL -->
     <!--------------------------------------------------->
-    <div class="controls_container-small">
+    <div class="controls_container-small" style="margin-bottom: 1rem;" [ngClass] = "showControls ? 'hide' : ''" (click)="toggleControls()">
+        <div class="slider">
+            <p style="font-size: 2rem;">Hand <span class="number" style="font-size: 2.5rem;">{{handIdx+1}}</span></p>
+        </div>
+        
+    </div>
+    <div class="controls_container-small" [ngClass] = "showControls ? '' : 'hide'" >
         <div class="toogle">
             <div class="playback" [ngClass]="isPlay ? 'playback__play' : 'playback__pause'" (click)="toggle()"></div>
         </div>
@@ -32,7 +38,7 @@
             <p>Current hand <span class="number">{{handIdx+1}}</span> of <span class="number">{{getMaxHands()+1}}</span>
             </p>
         </div>        
-        <div class="settings">
+        <div class="settings" (click)="toggleControls()">
             [X]
         </div>
     </div>
