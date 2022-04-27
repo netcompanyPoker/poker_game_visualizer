@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import * as data from './output.json';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject} from 'rxjs';
 
 export const SETUP_TIMECONSTANT = 10;
 export const NORMAL_TIMECONSTANT = 5;
 export const PRE_STAGE_CHANGE_TIMECONSTANT = 6;
 export const STAGE_CHANGE_TIMECONSTANT = 10;
+export const SLOW_STAGE_CHANGE_TIMECONSTANT = 20;
 export const WINNER_TIMECONSTANT = 6;
 export interface Players {
   name: string;
@@ -152,6 +153,7 @@ export class NewPokerGameService {
   getTransformedData() {
     const game: Game = { hands: [] }
     game.hands = this.getHands()
+    console.log('hands',game.hands)
     return game
   }
 
@@ -167,7 +169,7 @@ export class NewPokerGameService {
       const setupstep: Step = this.getSetupStep(hand, handEvents);
       theHand.steps.push(setupstep)
 
-      let filteredHandevents = handEvents.filter(x => !(x.player != -1 && x.type == 'deal' || x.type == 'reward' || x.type == 'win_chance'));
+      let filteredHandevents = handEvents.filter(x => !(x.player != -1 && x.type == 'deal' || x.type == 'reward'));
 
 
 
@@ -187,7 +189,7 @@ export class NewPokerGameService {
         const id = mainobj.player
 
 
-        if (mainobj.player != -1) {
+        if (mainobj.player != -1 && mainobj.type != 'win_chance') {
           let step: Step = { stepId: index + 1, timeconstant: NORMAL_TIMECONSTANT, playerStates: new Map<number, PlayerState>() }
           const actionNumber = mainobj.action
           let bettingState = betcontrol.get(id)!
@@ -217,7 +219,7 @@ export class NewPokerGameService {
             next_to_act: false
           })
           theHand.steps.push(step)
-        } else {
+        } else if (mainobj.player == -1 && mainobj.type != 'win_chance') {
           if (boardStepsLeft > 0) {
             boardStepsLeft -= 1
           } else {
@@ -232,35 +234,69 @@ export class NewPokerGameService {
             prestep.playerStates?.set(filteredHandevents[index-1].player, {stage_contribution : 0, seatstate: playerfolded ? 'fold' : 'active'})
             pot = newpot
             theHand.steps.push(prestep)
-            const cards = this.getCardsforBoard(filteredHandevents.slice(index, index + 5))
-            community = community.concat(cards)
+
+            //main stage          
+            
+            const cards = this.getCardsforBoard(filteredHandevents.slice(index).filter(x => x.type != 'win_chance').slice(0, 5))
+            console.log(cards)            
             boardStepsLeft = cards.length - 1
-
-            currentStage = this.setStage(cards.length, currentStage, index == filteredHandevents.length - 1)
-
-            let boardstate: BoardState = {
-              cards: community,
-              stage: currentStage
-            }
-            let playerstates = new Map<number, PlayerState>()
-            //set winchance
-
-
-            if (index != filteredHandevents.length - 1 - boardStepsLeft) {
-              if (filteredHandevents[index + 1 + boardStepsLeft].player != -1) {
-                playerstates.set(filteredHandevents[index + 1 + boardStepsLeft].player, { next_to_act: true, win_chance: 40 })
+            
+            if(this.isSlowFlow(cards, currentStage)){
+              if(currentStage == Stage.Preflop){
+                //Flop
+                community = community.concat(cards.slice(0,3))
+                const flophandevents = filteredHandevents.slice(index + community.length, index + community.length+ hand.active_players.length);                
+                currentStage = Stage.Flop                
+                const flopplayerstates = this.getStagePlayerstate(flophandevents, null)
+                const flopStageStep = this.getStageStep(community, currentStage, flopplayerstates, true);       
+                theHand.steps.push(flopStageStep)               
+                //Turn
+                community = community.concat(cards.slice(3,4))
+                const turnhandevents = filteredHandevents.slice(index + community.length + flopplayerstates.size, index + community.length + flopplayerstates.size + hand.active_players.length);                
+                currentStage = Stage.Turn          
+                const turnplayerstates = this.getStagePlayerstate(turnhandevents, null)               
+                const turnStageStep = this.getStageStep(community, currentStage, turnplayerstates, true)
+                theHand.steps.push(turnStageStep) 
+                //River
+                community = community.concat(cards.slice(4,5))
+                const riverhandevents = filteredHandevents.slice(index + community.length + flopplayerstates.size * 2, index + community.length + flopplayerstates.size * 2 + hand.active_players.length);                
+                currentStage = Stage.Showdown          
+                const riverplayerstates = this.getStagePlayerstate(riverhandevents, null)               
+                const riverStageStep = this.getStageStep(community, currentStage, riverplayerstates, true)               
+                theHand.steps.push(riverStageStep) 
+              }else if (currentStage == Stage.Flop){
+                community = community.concat(cards.slice(0,1))
+                const turnhandevents = filteredHandevents.slice(index + community.length, index + community.length + hand.active_players.length);                
+                currentStage = Stage.Turn          
+                const turnplayerstates = this.getStagePlayerstate(turnhandevents, null)               
+                const turnStageStep = this.getStageStep(community, currentStage, turnplayerstates, true)
+                theHand.steps.push(turnStageStep) 
+                //River
+                community = community.concat(cards.slice(1,2))
+                const riverhandevents = filteredHandevents.slice(index + community.length + turnplayerstates.size * 2, index + community.length + turnplayerstates.size * 2 + hand.active_players.length);                
+                currentStage = Stage.Showdown          
+                const riverplayerstates = this.getStagePlayerstate(riverhandevents, null)               
+                const riverStageStep = this.getStageStep(community, currentStage, riverplayerstates, true)               
+                theHand.steps.push(riverStageStep) 
               }
-            }
-
-            let step: Step = { stepId: index + 2, timeconstant: STAGE_CHANGE_TIMECONSTANT, playerStates: playerstates, boardState: boardstate }
-            theHand.steps.push(step)
+            }else{
+              community = community.concat(cards)            
+              const handevents = filteredHandevents.slice(index + cards.length, index + cards.length + hand.active_players.length);
+              currentStage = this.setStage(cards.length, currentStage, this.isbetroundAfterRiver(filteredHandevents))
+              const next_to_act_id = index != filteredHandevents.length - 1 - boardStepsLeft && filteredHandevents[index + 1 + boardStepsLeft].player != -1 ? filteredHandevents[index + 1 + boardStepsLeft].player : null  
+              const playerstates = this.getStagePlayerstate(handevents, next_to_act_id)               
+              const StageStep = this.getStageStep(community, currentStage, playerstates, false)      
+              theHand.steps.push(StageStep)
+            }          
+            
             betcontrol.forEach(obj => obj = this.resetStageBettingstate(obj))
           }
         }
       })
       //preWinner where everyone fold
-      if (filteredHandevents[filteredHandevents.length - 1].player != -1) {
-        const onlyOneLeft = hand.active_players.length - filteredHandevents.filter(x => x.type == 'action' && x.action == 0).length == 1;
+      const onlyOneLeft = hand.active_players.length - filteredHandevents.filter(x => x.type == 'action' && x.action == 0).length == 1;
+      if (this.isbetroundAfterRiver(filteredHandevents)) {
+        
             
         let prestep: Step | undefined;
         let newpot
@@ -270,7 +306,7 @@ export class NewPokerGameService {
       }
       //add winner logic      
       const stages: Stage[] = theHand.steps.filter(x => x.boardState?.stage != null).map(x => x.boardState!.stage!)
-      const isShowdown = stages[stages.length - 1] == Stage.Showdown
+      const isShowdown = stages[stages.length - 1] == Stage.Showdown || stages[stages.length - 1] == Stage.River && !onlyOneLeft
 
 
       let rewards = handEvents.filter(x => x.type == 'reward');
@@ -321,11 +357,43 @@ export class NewPokerGameService {
     return handtype
   }
 
+  isbetroundAfterRiver(handevents: HandEvent[]): boolean {
+    const filteredHandeventswithoutWinchance = handevents.filter( x => x.type != 'win_chance')
+    return filteredHandeventswithoutWinchance[filteredHandeventswithoutWinchance.length - 1].player != -1
+  }
+
+  getStageStep(community : string[], stage : Stage, playerstates : Map<number, PlayerState> , slowstage : boolean) {    
+    
+    const boardstate: BoardState = {
+      cards: community,
+      stage: stage
+    }    
+    const StageStep: Step = { stepId : 1,  timeconstant: slowstage ? SLOW_STAGE_CHANGE_TIMECONSTANT : STAGE_CHANGE_TIMECONSTANT, playerStates: playerstates, boardState: boardstate }
+    return StageStep
+  }
+
+  getStagePlayerstate(handevents: HandEvent[], next_to_act_id : number | null) : Map<number, PlayerState> {
+    let playerstates : Map<number, PlayerState> = new Map<number, PlayerState>()
+    console.log('Handevents', handevents)
+    for (let i = 0; i < handevents.length; i++) {
+      if(handevents[i].type != 'win_chance'){
+        break;
+      }      
+      if(next_to_act_id != null && next_to_act_id == handevents[i].player){
+        playerstates.set(handevents[i].player, {win_chance : Math.round(handevents[i].win_chance!*100), next_to_act: true})
+      }else{
+        playerstates.set(handevents[i].player, {win_chance : Math.round(handevents[i].win_chance!*100)})
+      }
+      
+    } 
+    return playerstates
+  }
+
+
 
   private preStage(pot: number, betcontrol: Map<number, BettingState>, onlyOneLeft : boolean) {
     const overkill = this.getoverkill(betcontrol);
-    if(overkill != null && !onlyOneLeft){
-      console.log('Overkill Id')
+    if(overkill != null && !onlyOneLeft){      
       var tempBettingState : BettingState | undefined = betcontrol.get(overkill.id)
       if(tempBettingState != null){
         tempBettingState.stage_contribution = tempBettingState.stage_contribution - overkill.overkill
@@ -402,6 +470,15 @@ export class NewPokerGameService {
     return null;
   }
 
+  isSlowFlow(cards : string[], stage : Stage): boolean {
+    if(stage == Stage.Preflop){      
+      return cards.length == 5
+    }else if( stage == Stage.Flop){
+      return cards.length == 2
+    }
+    return false
+  }
+
   calculatePot(bettingStates: Map<number, BettingState>): number {
     let pot = 0;
     bettingStates.forEach(obj => pot += obj.stage_contribution)
@@ -476,6 +553,7 @@ export class NewPokerGameService {
 
 
   getCardsforBoard(events: (HandEvent | null)[]) {
+    console.log('cards', events)
     let cards: string[] = []
     for (let i = 0; i < events.length; i++) {
       if (events[i] == null || events[i]?.player != -1) {
