@@ -11,7 +11,9 @@
     <div class="poker-table__community__carts">
       <app-card-group [cards]="board.cards!" [overlap]="true"></app-card-group>
     </div>
-
+    <div class="poker-table__blinds">
+      <div>Blinds: {{board.smallBlind}} / {{board.bigBlind}}</div>
+    </div>
   </div>
 
   <div class="poker-table__game">

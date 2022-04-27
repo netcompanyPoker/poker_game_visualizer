@@ -114,6 +114,12 @@ export class PokerTableComponent implements OnInit, OnChanges {
     if(newBoardState.cards != null){
       boardState.cards = newBoardState.cards 
     }
+    if(newBoardState.bigBlind != null){
+      boardState.bigBlind = newBoardState.bigBlind
+    }
+    if(newBoardState.smallBlind != null){
+      boardState.smallBlind = newBoardState.smallBlind
+    }
     return boardState
   }  
   

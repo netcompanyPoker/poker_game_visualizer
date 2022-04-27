@@ -74,6 +74,8 @@ export interface BoardState {
   cards?: string[]
   pot?: number
   stage?: Stage
+  bigBlind?: number
+  smallBlind?: number
 }
 
 export interface Step {
@@ -344,7 +346,11 @@ export class NewPokerGameService {
   private getSetupStep(hand: HandJSON, handEvents: HandEvent[]) {
     const activePlayers = hand.active_players;
     const defeated_players = hand.defeated_players;
-    const setupstep: Step = { stepId: 0, timeconstant: SETUP_TIMECONSTANT, playerStates: new Map<number, PlayerState>() };
+    const actions = hand.hand_events.filter(x => x.type == 'action')
+    const smallBlind = actions[0].action
+    const bigBlind = actions[1].action
+    const boardState: BoardState = {bigBlind: bigBlind, smallBlind: smallBlind}
+    const setupstep: Step = { stepId: 0, timeconstant: SETUP_TIMECONSTANT, playerStates: new Map<number, PlayerState>(), boardState: boardState };
     const playerCount = activePlayers.length + defeated_players.length
 
     activePlayers.forEach((obj, index) => {

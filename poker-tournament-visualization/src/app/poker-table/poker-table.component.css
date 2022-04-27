@@ -265,6 +265,15 @@ app-dual-stack {
   text-shadow: none;
 }
 
+.poker-table .poker-table__blinds {
+  font-family: Montserrat;
+  font-weight: 900;
+  color: #ffffff;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  text-shadow: none;
+}
+
 .poker-table__game .players {
   width: calc(100% + 160px);
   height: calc(100% + 160px);

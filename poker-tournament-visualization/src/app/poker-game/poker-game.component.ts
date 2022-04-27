@@ -14,7 +14,7 @@ import { first } from 'rxjs/operators';
 export class PokerGameComponent implements OnInit, OnChanges {
   syncSubscription: Subscription | undefined;
   highlightHandIds?: number[];
-  secondsToSee: number = 5 * 60
+  secondsToSee: number = 15 * 60
   game: Game;
   stage: Stage;
   actionIdx: number = 0;
