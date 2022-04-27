@@ -68,6 +68,7 @@ export interface PlayerState {
   next_to_act?: boolean
   winner?: boolean
   out_position?: number
+  win_chance? : number
 }
 
 export interface BoardState {
@@ -242,9 +243,12 @@ export class NewPokerGameService {
               stage: currentStage
             }
             let playerstates = new Map<number, PlayerState>()
+            //set winchance
+
+
             if (index != filteredHandevents.length - 1 - boardStepsLeft) {
               if (filteredHandevents[index + 1 + boardStepsLeft].player != -1) {
-                playerstates.set(filteredHandevents[index + 1 + boardStepsLeft].player, { next_to_act: true })
+                playerstates.set(filteredHandevents[index + 1 + boardStepsLeft].player, { next_to_act: true, win_chance: 40 })
               }
             }
 
