@@ -11,15 +11,14 @@ from datetime import datetime
 
 
 cookies = {
-    'connect.sid': 's%3A7w6W2RmO7h_6aDhPcp-37dKFI5r_x_Ff.ZWFGdBid3GgFCe9n5go8jJ94GiOgJJ3CipSQQecsjxQ',
-    'amplitudeSessionId': '1649489862',
-    '_dd_s': 'logs=1&id=0edece00-f58f-4806-a0be-a967ef972090&created=1649489862645&expire=1649491263939&rum=1',
-    '__stripe_mid': '56576eab-a86b-4575-8980-1b01f9173b0391f4f3',
-    '__stripe_sid': '341178c1-ef54-449a-a695-7eaa30226db57f40c4',
+    '__stripe_mid': 'bc768899-ffee-473d-8fc0-a0981205f8a596a0ec',
+    'connect.sid': 's%3A8AIdeyIJV_jxyybEp3CPHuMBxjmUp5S0.44uC6m7lYwdP%2BgEmbU3MIdK2wjveEgLeJAyfMdsledQ',
+    'ajs_anonymous_id': '86aecb02-045a-4d82-83ef-68640bcb7052',
+    'ajs_user_id': '12607051',
     'replit:authed': '1',
     'replit_authed': '1',
     'sidebarClosed': 'true',
-    'replit_ng': '1649490940.821.1666.704228|8035451343a2d8f3e54599c71b2aec19',
+    'replit_ng': '1651163012.675.686.110129|8035451343a2d8f3e54599c71b2aec19',
 }
 
 headers = {
@@ -35,9 +34,8 @@ headers = {
     'Sec-Fetch-User': '?1',
     'Connection': 'keep-alive',
     # Requests sorts cookies= alphabetically
-    # 'Cookie': 'connect.sid=s%3A7w6W2RmO7h_6aDhPcp-37dKFI5r_x_Ff.ZWFGdBid3GgFCe9n5go8jJ94GiOgJJ3CipSQQecsjxQ; amplitudeSessionId=1649489862; _dd_s=logs=1&id=0edece00-f58f-4806-a0be-a967ef972090&created=1649489862645&expire=1649491263939&rum=1; __stripe_mid=56576eab-a86b-4575-8980-1b01f9173b0391f4f3; __stripe_sid=341178c1-ef54-449a-a695-7eaa30226db57f40c4; replit:authed=1; replit_authed=1; sidebarClosed=true; replit_ng=1649490940.821.1666.704228|8035451343a2d8f3e54599c71b2aec19',
+    # 'Cookie': '__stripe_mid=bc768899-ffee-473d-8fc0-a0981205f8a596a0ec; connect.sid=s%3A8AIdeyIJV_jxyybEp3CPHuMBxjmUp5S0.44uC6m7lYwdP%2BgEmbU3MIdK2wjveEgLeJAyfMdsledQ; ajs_anonymous_id=86aecb02-045a-4d82-83ef-68640bcb7052; ajs_user_id=12607051; replit:authed=1; replit_authed=1; sidebarClosed=true; replit_ng=1651163012.675.686.110129|8035451343a2d8f3e54599c71b2aec19',
 }
-
 
 def get_all_bots():
     now = datetime.now()
@@ -48,6 +46,7 @@ def get_all_bots():
 
     for bot in bots_csv:
         player_name, bot_location, table = bot.split(";")
+        bot_location = "".join(bot_location.split("_"))
         get_zip(player_name.strip(), bot_location.strip(), timestamp, table.strip())
 
 

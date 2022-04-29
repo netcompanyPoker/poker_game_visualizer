@@ -8,7 +8,7 @@ export const SETUP_TIMECONSTANT = 10;
 export const NORMAL_TIMECONSTANT = 5;
 export const PRE_STAGE_CHANGE_TIMECONSTANT = 6;
 export const STAGE_CHANGE_TIMECONSTANT = 10;
-export const SLOW_STAGE_CHANGE_TIMECONSTANT = 20;
+export const SLOW_STAGE_CHANGE_TIMECONSTANT = 15;
 export const WINNER_TIMECONSTANT = 6;
 export interface Players {
   name: string;
