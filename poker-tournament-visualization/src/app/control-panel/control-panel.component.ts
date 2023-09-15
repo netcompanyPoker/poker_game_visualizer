@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SyncService } from '../sync/sync.service';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatLegacyTableDataSource as MatTableDataSource, MatLegacyTableModule as MatTableModule } from '@angular/material/legacy-table';
 import { UntypedFormArray, UntypedFormGroup, UntypedFormBuilder, UntypedFormControl } from '@angular/forms';
 
 export interface Client {

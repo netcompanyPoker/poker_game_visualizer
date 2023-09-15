@@ -4,7 +4,7 @@ import { PokerGameComponent } from './poker-game.component';
 import { PokerGameService } from './poker-game.service';
 import { PokerTableComponent } from '../poker-table/poker-table.component';
 import { PokerPlayerComponent } from '../poker-player/poker-player.component';
-import { MatSliderModule } from '@angular/material/slider';
+import { MatLegacySliderModule as MatSliderModule } from '@angular/material/legacy-slider';
 import { FormsModule } from '@angular/forms';
 import { PokerActionComponent } from '../poker-action/poker-action.component';
 import { CardGroupComponent } from '../card-group/card-group.component';

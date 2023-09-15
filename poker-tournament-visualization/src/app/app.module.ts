@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PokerGameModule } from './poker-game/poker-game.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSliderModule } from '@angular/material/slider';
+import { MatLegacySliderModule as MatSliderModule } from '@angular/material/legacy-slider';
 import { SyncModule } from './sync/sync.module';
 import { ControlPanelModule } from './control-panel/control-panel.module';
 import { HttpClientModule } from '@angular/common/http';
