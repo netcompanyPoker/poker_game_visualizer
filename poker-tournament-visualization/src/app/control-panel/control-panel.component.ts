@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SyncService } from '../sync/sync.service';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { FormArray, FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { UntypedFormArray, UntypedFormGroup, UntypedFormBuilder, UntypedFormControl } from '@angular/forms';
 
 export interface Client {
   Id?: string;
@@ -22,21 +22,21 @@ export class ControlPanelComponent implements OnInit, OnDestroy {
   isPlaying: boolean = false;
   clients: Client[] = [];
   displayedColumns: string[] = ['id', 'table'];
-  form: FormGroup;
+  form: UntypedFormGroup; // TODO: Update UntypedForm<X> to include generic type parameter
 
   dataSource = new MatTableDataSource(this.clients);
 
   constructor(
     private service: SyncService,
-    private _formBuilder: FormBuilder
+    private _formBuilder: UntypedFormBuilder
   ) {
     this.form = this._formBuilder.group({
       tables: this._formBuilder.array([])
     });
   }
 
-  get tables(): FormArray {
-    return this.form.get('tables') as FormArray;
+  get tables(): UntypedFormArray {
+    return this.form.get('tables') as UntypedFormArray;
   }
 
   ngOnDestroy(): void {
@@ -80,17 +80,17 @@ export class ControlPanelComponent implements OnInit, OnDestroy {
     }
   }
 
-  getClientsAsFormArray(): FormArray {
+  getClientsAsFormArray(): UntypedFormArray {
     const fgs = this.clients.map(x => {
       return this.mapToGroup(x);
     })
-    return new FormArray(fgs);
+    return new UntypedFormArray(fgs);
   }
 
   private mapToGroup(x: Client) {
-    const fg = new FormGroup({
-      id: new FormControl(x.Id),
-      table: new FormControl(x.Table),
+    const fg = new UntypedFormGroup({
+      id: new UntypedFormControl(x.Id),
+      table: new UntypedFormControl(x.Table),
     });
     return fg;
   }
