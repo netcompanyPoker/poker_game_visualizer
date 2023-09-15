@@ -22,6 +22,7 @@
     "@angular/router": "^16.2.5",
     "canvas-confetti": "^1.5.1",
     "cardsJS": "^1.1.1",
+    "npm": "^10.1.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "zone.js": "^0.13.3"
