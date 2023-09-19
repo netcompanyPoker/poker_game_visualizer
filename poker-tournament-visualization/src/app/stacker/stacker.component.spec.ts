@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { StackerComponent } from './stacker.component';
 
 describe('StackerComponent', () => {

@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { CardGroupComponent } from './card-group.component';
 
 describe('CardGroupComponent', () => {

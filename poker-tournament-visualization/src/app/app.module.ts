@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PokerGameModule } from './poker-game/poker-game.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatLegacySliderModule as MatSliderModule } from '@angular/material/legacy-slider';
+import { MatLegacySliderModule as MatSliderModule } from '@angular/material/legacy-slider'; // TODO: Update use of MatLegacySliderModule
 import { SyncModule } from './sync/sync.module';
 import { ControlPanelModule } from './control-panel/control-panel.module';
 import { HttpClientModule } from '@angular/common/http';

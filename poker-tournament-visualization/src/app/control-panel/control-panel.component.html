@@ -1,12 +1,10 @@
 <form [formGroup]="form" autocomplete="off">
   <ng-container formArrayName="tables">
     <mat-table [dataSource]="tables.controls">
-
       <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.get('id').value}}. </mat-cell>
       </ng-container>
-
       <ng-container matColumnDef="table">
         <mat-header-cell *matHeaderCellDef> Table file </mat-header-cell>
         <mat-cell *matCellDef="let element;" [formGroup]="element">
@@ -16,7 +14,6 @@
           </mat-form-field>
         </mat-cell>
       </ng-container>
-
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>

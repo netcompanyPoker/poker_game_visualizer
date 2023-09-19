@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Game, HandEvent, HandJSON, Players } from './new-poker-game.service';
+import { Game, HandJSON, Players } from './new-poker-game.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,8 +7,6 @@ import { Game, HandEvent, HandJSON, Players } from './new-poker-game.service';
 export class HighlightService {
 
   constructor() { }
-
-
 
   getHighlightedHands(gameRaw : HandJSON[], gameTransformed : Game, timerestrain: number) : number[]{
     const highlightedGame : Game = {hands : []}
@@ -19,7 +17,7 @@ export class HighlightService {
       gameList.push(gameRaw[i])
     }
     this.addHandScores(gameList)
-    const sortedGames = gameList.sort((a, b) => (b.highlight_score ?? 0) - (a.highlight_score ?? 0))                      
+    const sortedGames = gameList.sort((a, b) => (b.highlight_score ?? 0) - (a.highlight_score ?? 0))
                       .map(x => x.hand_count);
     const highlights : number[] = []
     var sumTimeConstant : number = 0
@@ -27,8 +25,8 @@ export class HighlightService {
       if(timerestrain > sumTimeConstant){
         sumTimeConstant = sumTimeConstant + gameTransformed.hands[x].totalTimeconstant
         highlights.push(x)
-      }   
-    })    
+      }
+    })
     console.log('highlight', highlights.sort((a,b) => a -b))
     return highlights.sort((a,b) => a -b)
   }
@@ -43,14 +41,14 @@ export class HighlightService {
 
   getHandScore(handData: HandJSON, defeatedPlayersNextHandOrUndefined?: Players[]): number{
     var score = 0
-    
+
     if(this.anyElimination(handData, defeatedPlayersNextHandOrUndefined)){
       score += 100000
     }
 
     score += this.getPotSizeScore(handData)
     score += this.getOutplayScore(handData)
-    
+
     return score
   }
 
@@ -58,7 +56,7 @@ export class HighlightService {
     if (this.isLastHand(defeatedPlayersNextHandOrUndefined)){
       return true
     }else{
-      return handData.defeated_players.length !== defeatedPlayersNextHandOrUndefined?.length 
+      return handData.defeated_players.length !== defeatedPlayersNextHandOrUndefined?.length
     }
   }
 
@@ -68,7 +66,7 @@ export class HighlightService {
 
   getPotSizeScore(handData: HandJSON): number {
     const bigBlind = handData.hand_events[1].action
-    const rewards = handData.hand_events.filter((x) => x.type === "reward").map((x) => x.reward ?? 0) 
+    const rewards = handData.hand_events.filter((x) => x.type === "reward").map((x) => x.reward ?? 0)
     const potSize = rewards.filter((x) => x > 0).reduce((acc, x) => acc + x)
     const potSizeInBigBlinds = potSize / bigBlind
     return potSizeInBigBlinds * 1 + (potSize * 0.001)
@@ -95,8 +93,4 @@ export class HighlightService {
     })
     return outplayScore
   }
-
-  
-
-  
 }

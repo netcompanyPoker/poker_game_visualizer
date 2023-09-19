@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as data from './games.json';
 
-
 export interface Player {
   id : number;
   cards: string[];

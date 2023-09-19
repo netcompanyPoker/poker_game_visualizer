@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-
 import { HighlightService } from './highlight.service';
 
 describe('HighlightService', () => {

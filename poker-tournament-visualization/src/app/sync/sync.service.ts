@@ -6,7 +6,6 @@ import {
   retryWhen,
   tap,
   delayWhen,
-  switchAll,
   catchError,
 } from 'rxjs/operators';
 export const WS_ENDPOINT = environment.wsEndpoint;
@@ -45,7 +44,7 @@ export class SyncService {
         }),
         catchError((_) => EMPTY)
       );
-      //toDO only next an observable if a new subscription was made double-check this
+      // TODO: Only next an observable if a new subscription was made double-check this
       // this.messagesSubject$.next(messages);
       // this.messagesSubject$.error((x: any) => console.error('asdf' + x));
       // this.messagesSubject$.complete();

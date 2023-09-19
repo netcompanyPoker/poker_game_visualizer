@@ -1,9 +1,8 @@
 /* eslint-disable require-jsdoc */
 import { Component, Input, OnChanges, OnInit, SimpleChange } from '@angular/core';
-import { Game, PlayerState, Player, Step, BoardState } from '../poker-game/new-poker-game.service';
-import { History, PlayerStateOld, Stage } from '../poker-game/poker-game.service';
+import { Game, PlayerState, BoardState } from '../poker-game/new-poker-game.service';
+import { History, Stage } from '../poker-game/poker-game.service';
 import * as confetti from 'canvas-confetti';
-import { coerceStringArray } from '@angular/cdk/coercion';
 
 @Component({
   selector: 'app-poker-table',
@@ -60,14 +59,11 @@ export class PokerTableComponent implements OnInit, OnChanges {
     return this.buildPlayerState(playerstates)
   }
 
-
   buildPlayerState(playerStates: PlayerState[]): PlayerState {
     let currentPlayerState: PlayerState = {};
     playerStates.forEach(obj => currentPlayerState = this.updatePlayerState(currentPlayerState, obj))
     return currentPlayerState
   }
-
-
 
   updatePlayerState(currentPlayerState: PlayerState, newPlayerState: PlayerState): PlayerState {
     let playerState: PlayerState = currentPlayerState
@@ -166,6 +162,4 @@ export class PokerTableComponent implements OnInit, OnChanges {
     }
     return boardState
   }
-
 }
-

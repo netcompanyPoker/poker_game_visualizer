@@ -9,7 +9,7 @@
         </div>
         <div class="player__information" [ngStyle]="{'border-color':visualSettings[playerNo].color}">
             <div class="player__information--name">{{player.name}}</div>
-            <div class="player__information--score">${{player.stack}}</div> 
+            <div class="player__information--score">${{player.stack}}</div>
             <!-- <div *ngIf="player.seatstate === 'small-blind' && player.winner != true" class="player__information--small-blind">Small blind</div>
             <div *ngIf="player.seatstate === 'big-blind' && player.winner != true" class="player__information--big-blind">Big blind</div> -->
             <div *ngIf="player.seatstate === 'out'" class="player__information--big-blind">#{{player.out_position!}}</div>
@@ -17,7 +17,6 @@
             <div *ngIf="player.winner" class="player__information--winner">Winner</div>
         </div>
     </div>
-
     <div class="bet"
         [ngStyle]="{'transform': 'translate('+ visualSettings[playerNo].offsetX + 'px ,' + visualSettings[playerNo].offsetY + 'px)'}">
         <div class="bet__stack">
@@ -25,10 +24,7 @@
         </div>
         <div *ngIf="player.stage_contribution! > 0" class="bet__number"> ${{player.stage_contribution!}}</div>
     </div>
-
 </div>
-
-
 <div *ngIf="player.seatstate === 'not-active'" class="player not-active">
     <div>
         Empty
